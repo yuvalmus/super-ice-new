@@ -1,7 +1,7 @@
 import { Tabs } from "expo-router";
 import React from "react";
 
-import { TabBarIcon } from "@/components/navigation/TabBarIcon";
+import { IoniconsTabBarIcon, MatCommunityTabBarIcon } from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -16,11 +16,47 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
+        name="customers"
+        options={{
+          title: "לקוחות",
+          tabBarIcon: ({ color, focused }) => (
+            <IoniconsTabBarIcon
+              name={focused ? "people" : "people-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="orders"
+        options={{
+          title: "הזמנות",
+          tabBarIcon: ({ color, focused }) => (
+            <IoniconsTabBarIcon
+              name={focused ? "receipt" : "receipt-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="distributionLine"
+        options={{
+          title: "קו חלוקה",
+          tabBarIcon: ({ color, focused }) => (
+            <MatCommunityTabBarIcon
+              name={focused ? "truck-fast" : "truck-fast-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
         name="index"
         options={{
-          title: "Home",
+          title: "בית",
           tabBarIcon: ({ color, focused }) => (
-            <TabBarIcon
+            <IoniconsTabBarIcon
               name={focused ? "home" : "home-outline"}
               color={color}
             />
