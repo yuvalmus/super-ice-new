@@ -1,11 +1,10 @@
 import { SafeAreaView } from "@/components/SafeAreaView";
 import { Text } from "react-native";
 
-export default function HomeScreen() {
-
+export default function OrdersScreen() {
   return (
     <SafeAreaView>
-      <Text>Noder Home Screen</Text>
+      <Text>Noder Orders Screen</Text>
     </SafeAreaView>
   );
 }
