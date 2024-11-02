@@ -1,10 +1,10 @@
-import { SafeAreaView } from "@/components/SafeAreaView";
+import { ScreenWrapper } from "@/components/ScreenWrapper";
 import { Text } from "react-native";
 
 export default function OrdersScreen() {
   return (
-    <SafeAreaView>
+    <ScreenWrapper>
       <Text>Noder Orders Screen</Text>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }

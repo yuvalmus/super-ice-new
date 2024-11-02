@@ -1,3 +1,4 @@
+import { screenOptions } from "@/constants/ScreenOptions";
 import { Customer } from "@/models/Customer";
 import { Stack } from "expo-router";
 import { createContext, useContext, useState } from "react";
@@ -22,9 +23,9 @@ export default function CustomersLayout() {
   return (
     <CustomerContext.Provider value={{ customerDetails, setCustomerDetails }}>
       <Stack>
-        <Stack.Screen name="index" options={{ headerShown: false }} />
-        <Stack.Screen name="[id]/index" options={{ headerShown: false }} />
-        <Stack.Screen name="[id]/edit" options={{ headerShown: false }} />
+        <Stack.Screen name="index" options={screenOptions} />
+        <Stack.Screen name="[id]/index" options={screenOptions} />
+        <Stack.Screen name="[id]/edit" options={screenOptions} />
       </Stack>
     </CustomerContext.Provider>
   );

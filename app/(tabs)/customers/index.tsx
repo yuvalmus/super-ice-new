@@ -1,17 +1,13 @@
-import { SafeAreaView } from "@/components/SafeAreaView";
+import { ScreenWrapper } from "@/components/ScreenWrapper";
 import { Text, TouchableOpacity } from "react-native";
 import { useRouter } from "expo-router";
+import { customers } from "@/mock/customers";
 
 export default function CustomersScreen() {
   const router = useRouter();
-  const customers = [
-    { id: 1, name: "Customer One" },
-    { id: 2, name: "Customer Two" },
-    // Add more customers as needed
-  ];
 
   return (
-    <SafeAreaView>
+    <ScreenWrapper>
       <Text>Noder Customers Screen</Text>
       {customers.map((customer) => (
         <TouchableOpacity
@@ -21,6 +17,6 @@ export default function CustomersScreen() {
           <Text>{customer.name}</Text>
         </TouchableOpacity>
       ))}
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }
