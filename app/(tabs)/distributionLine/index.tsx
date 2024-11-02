@@ -1,10 +1,10 @@
-import { SafeAreaView } from "@/components/SafeAreaView";
+import { ScreenWrapper } from "@/components/ScreenWrapper";
 import { Text } from "react-native";
 
 export default function DistributionLineScreen() {
   return (
-    <SafeAreaView>
+    <ScreenWrapper>
       <Text>Noder Distribution Line Screen</Text>
-    </SafeAreaView>
+    </ScreenWrapper>
   );
 }
