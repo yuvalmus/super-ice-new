@@ -8,7 +8,7 @@ export default function EditCustomerDetails() {
   return (
     <ScreenWrapper>
       <Text>Edit window</Text>
-      <Text>Customer: {customerDetails?.id}</Text>
+      <Text>Customer: {customerDetails?.businessNumber}</Text>
       <Text>Name: {customerDetails?.name}</Text>
     </ScreenWrapper>
   );
