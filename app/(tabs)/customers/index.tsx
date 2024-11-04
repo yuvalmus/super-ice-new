@@ -1,11 +1,18 @@
 import { ScreenWrapper } from "@/components/ScreenWrapper";
-import { SectionList, StyleSheet, Text, View } from "react-native";
+import {
+  SectionList,
+  StyleSheet,
+  Text,
+  TouchableOpacity,
+  View,
+} from "react-native";
 import { customers } from "@/mock/customers";
 import CustomerCard from "@/components/customersScreen/customerCard/CustomerCard";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import { distributionAreas } from "@/mock/distributionAreas";
 import SearchBar from "@/components/common/searchBar/SearchBar";
 import { useMemo, useState } from "react";
+import { Ionicons } from "@expo/vector-icons";
 
 export default function CustomersScreen() {
   const [searchedName, setSearchedName] = useState("");
@@ -26,7 +33,18 @@ export default function CustomersScreen() {
   );
 
   return (
-    <ScreenWrapper title="רשימת לקוחות" disableScroll>
+    <ScreenWrapper
+      title="רשימת לקוחות"
+      topButton={
+        <TouchableOpacity
+          style={{ alignSelf: "flex-start" }}
+          onPress={() => {}}
+        >
+          <Ionicons name="add" size={28} color="#001B61" />
+        </TouchableOpacity>
+      }
+      disableScroll
+    >
       <SearchBar placeholder="הקלד שם לקוח" onChangeText={setSearchedName} />
       <SectionList
         sections={sectionedData}

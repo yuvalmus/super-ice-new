@@ -1,6 +1,6 @@
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import { Ionicons } from "@expo/vector-icons";
-import React, { ComponentProps } from "react";
+import React, { ComponentProps, ReactNode } from "react";
 import {
   StyleSheet,
   StatusBar,
@@ -10,20 +10,19 @@ import {
   TouchableOpacity,
   ScrollView,
   Text,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
 import { useSafeAreaInsets } from "react-native-safe-area-context";
 
 const bg = require("@/assets/images/bg.jpg");
 
-interface IconButtonProps extends ComponentProps<typeof Ionicons> {
-  onPress: (event: GestureResponderEvent) => void;
-}
-
 interface ScreenWrapperProps {
   children: React.ReactNode;
   title?: string;
   style?: object;
-  topButton?: IconButtonProps;
+  topButton?: ReactNode;
+  topSectionStyle?: StyleProp<ViewStyle>;
   disableScroll?: boolean; // useful when the screen has a list or different scrollview that can interfere
 }
 
@@ -42,10 +41,8 @@ export const ScreenWrapper = (props: ScreenWrapperProps) => {
     >
       <StatusBar barStyle="default" translucent backgroundColor="transparent" />
       {props.topButton && (
-        <View style={styles.topButtonContainer}>
-          <TouchableOpacity onPress={props.topButton.onPress}>
-            <Ionicons {...{ ...props.topButton, onPress: undefined }} />
-          </TouchableOpacity>
+        <View style={[styles.topButtonContainer, props.topSectionStyle]}>
+          {props.topButton}
         </View>
       )}
       {props.title && <Text style={styles.titleTextStyle}>{props.title}</Text>}
@@ -66,6 +63,7 @@ const styles = StyleSheet.create({
   },
   topButtonContainer: {
     width: "100%",
+    paddingHorizontal: ScreenWidth * 0.05,
   },
   titleTextStyle: {
     color: "#001B61",

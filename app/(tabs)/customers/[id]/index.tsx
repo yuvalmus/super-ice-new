@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity } from "react-native";
+import { TouchableOpacity } from "react-native";
 import { useLocalSearchParams, useRouter } from "expo-router";
 import { useEffect } from "react";
 import { ScreenWrapper } from "@/components/ScreenWrapper";
@@ -6,6 +6,7 @@ import { useCustomer } from "../_layout";
 import { Customer } from "@/models/Customer";
 import { customers } from "@/mock/customers";
 import CustomerDetails from "@/components/customersScreen/customerDetails/CustomerDetails";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
 
 export default function CustomerScreen() {
   const { setCustomerDetails } = useCustomer();
@@ -29,11 +30,22 @@ export default function CustomerScreen() {
   }, [id]);
 
   return (
-    <ScreenWrapper>
+    <ScreenWrapper
+      topButton={
+        <TouchableOpacity
+          style={{ alignSelf: "flex-start" }}
+          onPress={() => router.push(`/customers/${id}/edit`)}
+        >
+          <MaterialCommunityIcons
+            name="square-edit-outline"
+            size={28}
+            color="#001B61"
+          />
+        </TouchableOpacity>
+      }
+      topSectionStyle={{ backgroundColor: "#8FCCE3" }}
+    >
       <CustomerDetails />
-      <TouchableOpacity onPress={() => router.push(`/customers/${id}/edit`)}>
-        <Text>Edit here</Text>
-      </TouchableOpacity>
     </ScreenWrapper>
   );
 }
