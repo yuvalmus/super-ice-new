@@ -1,4 +1,8 @@
 export interface Customer {
-  id: number;
+  businessNumber: number;
   name: string;
+  address: string;
+  distributionAreaId: number;
+  bagPrice2kg: number;
+  freezerId: number | null;
 }
