@@ -20,7 +20,7 @@ const bg = require("@/assets/images/bg.jpg");
 interface ScreenWrapperProps {
   children: React.ReactNode;
   title?: string;
-  style?: object;
+  style?: StyleProp<ViewStyle>;
   topButton?: ReactNode;
   topSectionStyle?: StyleProp<ViewStyle>;
   disableScroll?: boolean; // useful when the screen has a list or different scrollview that can interfere

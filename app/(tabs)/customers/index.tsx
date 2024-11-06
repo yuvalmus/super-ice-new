@@ -13,9 +13,12 @@ import { distributionAreas } from "@/mock/distributionAreas";
 import SearchBar from "@/components/common/searchBar/SearchBar";
 import { useMemo, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import CreateCustomerScreen from "./create";
+import SwipeableModal from "@/components/common/swipeableModal/SwipeableModal";
 
 export default function CustomersScreen() {
   const [searchedName, setSearchedName] = useState("");
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const sectionedData = useMemo(
     () =>
@@ -38,7 +41,7 @@ export default function CustomersScreen() {
       topButton={
         <TouchableOpacity
           style={{ alignSelf: "flex-start" }}
-          onPress={() => {}}
+          onPress={() => setIsModalVisible(true)}
         >
           <Ionicons name="add" size={28} color="#001B61" />
         </TouchableOpacity>
@@ -61,6 +64,9 @@ export default function CustomersScreen() {
           <Text style={styles.noResultsTextStyle}>אין תוצאות מתאימות</Text>
         )}
       />
+      <SwipeableModal isVisible={isModalVisible} onClose={() => setIsModalVisible(false)}>
+        <CreateCustomerScreen />
+      </SwipeableModal>
     </ScreenWrapper>
   );
 }
