@@ -9,7 +9,8 @@ export interface Order {
   attachedDistributionLineId: number | null;
   creationDate: string;
   suppliedDate: string | null;
-  debtLeft: number;
+  isPaid: boolean;
+  totalPrice: number;
   deliveryDocument?: DeliveryDoc;
   paymentMethod?: PaymentMethod;
 }

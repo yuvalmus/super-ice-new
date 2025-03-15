@@ -1,10 +1,10 @@
 import { StyleSheet, Text } from "react-native";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { useCustomer } from "@/app/(tabs)/customers/_layout";
 import { orders } from "@/mock/orders";
-import PendingOrders from "./PendingOrders";
-import CompletedOrders from "./CompletedNotPaidOrders";
+import PendingOrders from "../../../common/orders/pending/PendingOrders";
+import CompletedOrders from "../../../common/orders/completedNotPaid/CompletedNotPaidOrders";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 
 type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו";
@@ -21,9 +21,20 @@ const CustomerOrders = () => {
     SegmentIndices["לביצוע"]
   );
   const { customerDetails } = useCustomer();
-  const customerOrders = orders.filter(
-    (order) => order.customerId === customerDetails?.businessNumber
+  const customerOrders = useMemo(
+    () =>
+      orders.filter(
+        (order) => order.customerId === customerDetails?.businessNumber
+      ),
+    [orders, customerDetails]
   );
+
+  const sectionedCustomerOrders = useMemo(() => {
+    return {
+      title: "",
+      data: customerOrders,
+    };
+  }, [customerOrders]);
 
   return (
     <>
@@ -41,9 +52,15 @@ const CustomerOrders = () => {
         }}
       />
       {selectedIndex === SegmentIndices["לביצוע"] ? (
-        <PendingOrders customerOrders={customerOrders} />
+        <PendingOrders
+          sectionedOrdersList={[sectionedCustomerOrders]}
+          disableSectionScroll
+        />
       ) : (
-        <CompletedOrders customerOrders={customerOrders} />
+        <CompletedOrders
+          sectionedOrdersList={[sectionedCustomerOrders]}
+          disableSectionScroll
+        />
       )}
     </>
   );
