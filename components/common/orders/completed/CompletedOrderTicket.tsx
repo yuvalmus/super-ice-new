@@ -12,6 +12,7 @@ import { customers } from "@/mock/customers";
 
 interface CompletedOrderTicketProps {
   order: Order;
+  onOrderPress?: (orderId: number) => void;
 }
 
 const CompletedOrderTicket = (props: CompletedOrderTicketProps) => {
@@ -24,6 +25,7 @@ const CompletedOrderTicket = (props: CompletedOrderTicketProps) => {
       order={props.order}
       width={ScreenWidth * 0.62}
       title={currCustomer?.name}
+      onOrderPress={props.onOrderPress}
       regularDetails={[
         { title: "תאריך אספקה:", data: props.order.suppliedDate },
         { title: "כמות שסופקה:", data: props.order.amountSupplied },

@@ -4,6 +4,7 @@ export const customers: Customer[] = [
   {
     businessNumber: 1,
     name: "פינת המזל",
+    invoiceName: 'קיוסקי המזל בע"מ',
     address: "הרופא 3 רמת-גן",
     distributionAreaId: 3,
     bagPrice2kg: 5.5,

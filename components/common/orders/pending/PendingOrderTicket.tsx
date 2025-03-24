@@ -14,6 +14,7 @@ import {
 
 interface PendingOrderTicketProps {
   order: Order;
+  onOrderPress?: (orderId: number) => void;
 }
 
 const PendingOrderTicket = (props: PendingOrderTicketProps) => {
@@ -28,6 +29,7 @@ const PendingOrderTicket = (props: PendingOrderTicketProps) => {
       width={ScreenWidth * 0.62}
       title={currCustomer?.name}
       regularDetails={[{ title: "כמות:", data: props.order.amountRequired }]}
+      onOrderPress={props.onOrderPress}
       importantDetails={[
         {
           title: "תאריך הזמנה:",

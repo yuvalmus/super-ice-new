@@ -4,8 +4,9 @@ import SegmentedControl from "@react-native-segmented-control/segmented-control"
 import { useCustomer } from "@/app/(tabs)/customers/_layout";
 import { orders } from "@/mock/orders";
 import PendingOrders from "../../../common/orders/pending/PendingOrders";
-import CompletedOrders from "../../../common/orders/completedNotPaid/CompletedNotPaidOrders";
+import CompletedNotPaidOrders from "../../../common/orders/completedNotPaid/CompletedNotPaidOrders";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
+import { useRouter } from "expo-router";
 
 type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו";
 
@@ -17,6 +18,7 @@ const SegmentIndices: Record<OrdersStatusOptions, number> = {
 type SegmentType = keyof typeof SegmentIndices;
 
 const CustomerOrders = () => {
+  const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState<number>(
     SegmentIndices["לביצוע"]
   );
@@ -28,6 +30,19 @@ const CustomerOrders = () => {
       ),
     [orders, customerDetails]
   );
+
+  const handleOrderPress = (orderId: number) => {
+    if (customerDetails?.businessNumber) {
+      router.push({
+        pathname: "/(tabs)/orders/[id]",
+        params: {
+          id: orderId,
+          fromCustomer: "true",
+          customerId: customerDetails?.businessNumber,
+        },
+      });
+    }
+  };
 
   const sectionedCustomerOrders = useMemo(() => {
     return {
@@ -55,11 +70,13 @@ const CustomerOrders = () => {
         <PendingOrders
           sectionedOrdersList={[sectionedCustomerOrders]}
           disableSectionScroll
+          onOrderPress={handleOrderPress}
         />
       ) : (
-        <CompletedOrders
+        <CompletedNotPaidOrders
           sectionedOrdersList={[sectionedCustomerOrders]}
           disableSectionScroll
+          onOrderPress={handleOrderPress}
         />
       )}
     </>

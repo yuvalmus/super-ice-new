@@ -41,7 +41,7 @@ export const orders: Order[] = [
   {
     id: 4,
     customerId: 1,
-    attachedDistributionLineId: 2,
+    attachedDistributionLineId: null,
     amountRequired: 40,
     amountSupplied: 0,
     creationDate: "02/11/2024",

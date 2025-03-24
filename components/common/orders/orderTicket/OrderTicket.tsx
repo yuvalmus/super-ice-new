@@ -49,6 +49,7 @@ interface OrderTicketProps {
   importantDetails?: OrderTicketDetail[];
   otherDetails?: OrderTicketDetail[];
   style?: StyleProp<ViewStyle>;
+  onOrderPress?: (orderId: number) => void;
 }
 
 const OrderTicket = (props: OrderTicketProps) => {
@@ -69,7 +70,11 @@ const OrderTicket = (props: OrderTicketProps) => {
   const height = MIN_HEIGHT + calculateTicketHeight();
   return (
     <TouchableOpacity
-      onPress={() => router.push(`/orders/${props.order.id}`)}
+      onPress={() =>
+        props.onOrderPress
+          ? props.onOrderPress(props.order.id)
+          : router.push(`/orders/${props.order.id}`)
+      }
       style={[
         styles.container,
         { width: props.width, height: height },

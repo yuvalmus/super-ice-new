@@ -15,6 +15,7 @@ import CompletedNotPaidOrderTicket from "./CompletedNotPaidOrderTicket";
 interface CompletedNotPaidOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
   disableSectionScroll?: boolean;
+  onOrderPress?: (orderId: number) => void;
 }
 
 const CompletedNotPaidOrders = (props: CompletedNotPaidOrdersProps) => {
@@ -44,7 +45,10 @@ const CompletedNotPaidOrders = (props: CompletedNotPaidOrdersProps) => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.sectionListStyle}
         renderItem={({ item: order }) => (
-          <CompletedNotPaidOrderTicket order={order} />
+          <CompletedNotPaidOrderTicket
+            order={order}
+            onOrderPress={props.onOrderPress}
+          />
         )}
         renderSectionHeader={({ section: { title } }) =>
           title ? (

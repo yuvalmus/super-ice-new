@@ -23,6 +23,7 @@ export default function OrdersLayout() {
     <OrderContext.Provider value={{ orderDetails, setOrderDetails }}>
       <Stack>
         <Stack.Screen name="index" options={screenOptions} />
+        <Stack.Screen name="[id]/index" options={screenOptions} />
       </Stack>
     </OrderContext.Provider>
   );

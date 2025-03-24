@@ -15,6 +15,7 @@ import PendingOrderTicket from "./PendingOrderTicket";
 interface PendingOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
   disableSectionScroll?: boolean;
+  onOrderPress?: (orderId: number) => void;
 }
 
 const PendingOrders = (props: PendingOrdersProps) => {
@@ -44,7 +45,12 @@ const PendingOrders = (props: PendingOrdersProps) => {
         scrollEnabled={!props.disableSectionScroll}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.sectionListStyle}
-        renderItem={({ item: order }) => <PendingOrderTicket order={order} />}
+        renderItem={({ item: order }) => (
+          <PendingOrderTicket
+            order={order}
+            onOrderPress={props.onOrderPress}
+          />
+        )}
         renderSectionHeader={({ section: { title } }) =>
           title ? (
             <Text style={styles.distributionAreaTitleStyle}>{title}</Text>

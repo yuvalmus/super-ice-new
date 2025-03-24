@@ -15,6 +15,7 @@ import CompletedOrderTicket from "./CompletedOrderTicket";
 interface CompletedOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
   disableSectionScroll?: boolean;
+  onOrderPress?: (orderId: number) => void;
 }
 
 const CompletedOrders = (props: CompletedOrdersProps) => {
@@ -43,7 +44,12 @@ const CompletedOrders = (props: CompletedOrdersProps) => {
         scrollEnabled={!props.disableSectionScroll}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.sectionListStyle}
-        renderItem={({ item: order }) => <CompletedOrderTicket order={order} />}
+        renderItem={({ item: order }) => (
+          <CompletedOrderTicket
+            order={order}
+            onOrderPress={props.onOrderPress}
+          />
+        )}
         renderSectionHeader={({ section: { title } }) =>
           title ? (
             <Text style={styles.distributionAreaTitleStyle}>{title}</Text>
