@@ -1,9 +1,10 @@
 import {
   StyleSheet,
-  Text,
+  Image,
   TouchableOpacity,
   View,
   BackHandler,
+  Alert,
 } from "react-native";
 import React, { useEffect } from "react";
 import { router, useLocalSearchParams } from "expo-router";
@@ -13,10 +14,14 @@ import OrderDetails from "@/components/common/orders/orderDetails/OrderDetails";
 import { Order } from "@/models/Order";
 import { orders } from "@/mock/orders";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useAlert } from "@/contexts/AlertContext";
+
+const addToDistributionLineIcon = require("@/assets/images/addToDistributionLine.png");
 
 const OrderDetailsScreen = () => {
   const { orderDetails, setOrderDetails } = useOrder();
   const { id, fromCustomer, customerId } = useLocalSearchParams();
+  const { show } = useAlert();
 
   const handleBack = () => {
     if (fromCustomer === "true" && customerId) {
@@ -27,6 +32,50 @@ const OrderDetailsScreen = () => {
       });
     } else {
       router.push("/(tabs)/orders");
+    }
+  };
+
+  const handleAddToDistributionLine = () => {
+    if (orderDetails?.attachedDistributionLineId === null) {
+      show({
+        title: "הכנסת ההזמנה לקו חלוקה",
+        message: "האם להכניס את ההזמנה לקו החלוקה הנוכחי או לקו חלוקה אחר?",
+        buttons: [
+          {
+            text: "קו חלוקה אחר",
+            onPress: () => console.log("קו חלוקה אחר"),
+            style: "cancel",
+          },
+          {
+            text: "קו חלוקה נוכחי",
+            onPress: () => console.log("קו חלוקה נוכחי"),
+            style: "default",
+          },
+        ],
+      });
+    } else {
+      show({
+        title: "החלפת קו חלוקה להזמנה",
+        message:
+          "הזמנה זו כבר משויכת לקו חלוקה. האם אתה רוצה לשייך את ההזמנה לקו חלוקה אחר?",
+        buttons: [
+          {
+            text: "קו חלוקה אחר",
+            onPress: () => console.log("קו חלוקה אחר"),
+            style: "cancel",
+          },
+          {
+            text: "קו חלוקה נוכחי",
+            onPress: () => console.log("קו חלוקה נוכחי"),
+            style: "default",
+          },
+          {
+            text: "ביטול",
+            onPress: () => console.log("ביטול"),
+            style: "destructive",
+          },
+        ],
+      });
     }
   };
 
@@ -80,15 +129,23 @@ const OrderDetailsScreen = () => {
               color="#001B61"
             />
           </TouchableOpacity>
-          <TouchableOpacity
-            onPress={() => router.push(`/customers/${id}/edit`)}
-          >
-            <MaterialCommunityIcons
-              name="square-edit-outline"
-              size={28}
-              color="#001B61"
-            />
-          </TouchableOpacity>
+          <View style={styles.leftSideButtonsContainer}>
+            <TouchableOpacity
+              onPress={() => router.push(`/customers/${id}/edit`)}
+            >
+              <MaterialCommunityIcons
+                name="square-edit-outline"
+                size={28}
+                color="#001B61"
+              />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={handleAddToDistributionLine}>
+              <Image
+                source={addToDistributionLineIcon}
+                style={styles.addToDistributionLineIcon}
+              />
+            </TouchableOpacity>
+          </View>
         </View>
       }
       topSectionStyle={{ backgroundColor: "#8FCCE3" }}
@@ -100,4 +157,13 @@ const OrderDetailsScreen = () => {
 
 export default OrderDetailsScreen;
 
-const styles = StyleSheet.create({});
+const styles = StyleSheet.create({
+  leftSideButtonsContainer: {
+    flexDirection: "row",
+    gap: 15,
+  },
+  addToDistributionLineIcon: {
+    height: 28,
+    aspectRatio: 1,
+  },
+});

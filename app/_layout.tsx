@@ -9,6 +9,7 @@ import * as SplashScreen from "expo-splash-screen";
 import { I18nManager } from "react-native";
 import { useEffect } from "react";
 import "react-native-reanimated";
+import { AlertProvider } from "@/contexts/AlertContext";
 
 import { useColorScheme } from "@/hooks/useColorScheme";
 import { screenOptions } from "@/constants/ScreenOptions";
@@ -35,11 +36,13 @@ export default function RootLayout() {
   }
 
   return (
-    <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
-      <Stack>
-        <Stack.Screen name="(tabs)" options={screenOptions} />
-        <Stack.Screen name="+not-found" />
-      </Stack>
-    </ThemeProvider>
+    <AlertProvider>
+      <ThemeProvider value={colorScheme === "dark" ? DarkTheme : DefaultTheme}>
+        <Stack>
+          <Stack.Screen name="(tabs)" options={screenOptions} />
+          <Stack.Screen name="+not-found" />
+        </Stack>
+      </ThemeProvider>
+    </AlertProvider>
   );
 }
