@@ -1,4 +1,4 @@
-import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { StyleProp, StyleSheet, Text, View, ViewStyle } from "react-native";
 import React, { useMemo } from "react";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import { DistributionLine } from "@/models/DistributionLine";
@@ -9,6 +9,7 @@ import { formatDateWithDay } from "@/utils/Date/dateUtils";
 
 interface DistributionLineCardProps {
   distributionLine: DistributionLine;
+  style?: StyleProp<ViewStyle>;
 }
 
 const DistributionLineCard = (props: DistributionLineCardProps) => {
@@ -25,7 +26,7 @@ const DistributionLineCard = (props: DistributionLineCardProps) => {
   }, [props.distributionLine, orders]);
 
   return (
-    <TouchableOpacity style={styles.cardContainer}>
+    <View style={[styles.cardContainer, props.style]}>
       <Text style={styles.lineTitle}>
         {`קו חלוקה #${props.distributionLine.id}`}
       </Text>
@@ -45,7 +46,7 @@ const DistributionLineCard = (props: DistributionLineCardProps) => {
           <Text style={styles.lineInfoValue}>{numberOfOrders} נקודות</Text>
         </View>
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 
@@ -57,15 +58,9 @@ const styles = StyleSheet.create({
     flexDirection: "column",
     backgroundColor: "#F5F5F5",
     borderRadius: 30,
-    marginTop: ScreenHeight * 0.02,
     alignItems: "center",
     paddingVertical: ScreenHeight * 0.015,
     alignSelf: "center",
-    shadowColor: "#000",
-    shadowOffset: { width: 0, height: 3 },
-    shadowOpacity: 0.29,
-    shadowRadius: 4.65,
-    elevation: 7,
   },
   lineTitle: {
     fontSize: ScreenWidth * 0.048,

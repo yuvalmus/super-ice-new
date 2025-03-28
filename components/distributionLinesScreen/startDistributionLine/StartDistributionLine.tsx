@@ -1,16 +1,24 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { ScreenWidth, ScreenHeight } from "@/constants/Dimensions";
+import SelectDistributionLineModal from "./SelectDistributionLineModal";
 
 const StartDistributionLine = () => {
+  const [isModalVisible, setIsModalVisible] = useState(false);
+
   return (
-    <TouchableOpacity style={styles.container}>
+    <TouchableOpacity
+      style={styles.container}
+      onPress={() => setIsModalVisible(true)}
+    >
       <Text style={styles.title}>התחל קו חלוקה</Text>
-      {/* TODO: <Text>
-        ליצור מודל שמאפשר לבחור קו חלוקה אחד, ואז אני אשתמש בו גם פה וגם בדף של
-        ההזמנה בשביל לשייך את ההזמנה לקו חלוקה אחר שהוא לא הנוכחי
-        ולאפשר מתוך הדף של קו חלוקה, אם הוא של הנהג הנוכחי- להתחיל אותו מיד אם אין קו חלוקה פעיל
-      </Text> */}
+      <SelectDistributionLineModal
+        isVisible={isModalVisible}
+        onSelect={(selectedLineId: number) => {
+          // TODO: set the selected line as the active line for the driver
+        }}
+        onClose={() => setIsModalVisible(false)}
+      />
     </TouchableOpacity>
   );
 };

@@ -69,7 +69,6 @@ export default function DistributionLineScreen() {
       disableScroll
     >
       <ActiveDistributionLineStats />
-
       <SegmentedControl
         values={Object.keys(SegmentIndices) as SegmentType[]}
         selectedIndex={selectedIndex}
@@ -82,13 +81,18 @@ export default function DistributionLineScreen() {
       <FlatList
         data={filteredDistributionLines}
         renderItem={({ item }) => (
-          <DistributionLineCard distributionLine={item} />
+          <TouchableOpacity onPress={() => {}}>
+            <DistributionLineCard
+              distributionLine={item}
+              style={{ marginTop: ScreenHeight * 0.02 }}
+            />
+          </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={{
           paddingBottom: activeDistributionLine
             ? ScreenHeight * 0.4
-            : ScreenHeight * 0.1,
+            : ScreenHeight * 0.25,
         }}
         ListEmptyComponent={() => (
           <Text style={styles.noResultsTextStyle}>אין תוצאות מתאימות</Text>
