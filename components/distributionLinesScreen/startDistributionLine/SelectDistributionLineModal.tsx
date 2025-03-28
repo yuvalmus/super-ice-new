@@ -1,10 +1,11 @@
 import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
-import React, { useState } from "react";
+import React, { useMemo, useState } from "react";
 import SwipeableModal from "@/components/common/swipeableModal/SwipeableModal";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import { distributionLines } from "@/mock/distributionLines";
 import { userState } from "@/mock/userState";
 import DistributionLineCard from "../distributionLineCard/DistributionLineCard";
+import { compareDates } from "@/utils/Date/dateUtils";
 
 interface SelectDistributionLineModalProps {
   isVisible: boolean;
@@ -19,6 +20,11 @@ const SelectDistributionLineModal = (
   const driverLines = distributionLines.filter(
     (line) => line.driverId === userState.userId && !line.isCompleted
   );
+  const sortedDriverLines = useMemo(() => {
+    return driverLines.sort((a, b) =>
+      compareDates(a.scheduledDate, b.scheduledDate)
+    );
+  }, [driverLines]);
 
   const handleClose = () => {
     setSelectedLineId(null);
@@ -38,7 +44,7 @@ const SelectDistributionLineModal = (
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={true}
         >
-          {driverLines.map((line, index) => (
+          {sortedDriverLines.map((line, index) => (
             <View key={line.id} style={index > 0 && styles.cardMargin}>
               <Pressable
                 onPress={() => handleSelect(line.id)}

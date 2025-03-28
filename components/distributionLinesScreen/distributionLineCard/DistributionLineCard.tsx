@@ -5,7 +5,11 @@ import { DistributionLine } from "@/models/DistributionLine";
 import { orders } from "@/mock/orders";
 import { drivers } from "@/mock/drivers";
 import { Driver } from "@/models/Driver";
-import { formatDateWithDay } from "@/utils/Date/dateUtils";
+import {
+  formatDateWithDay,
+  isToday,
+  hasDatePassed,
+} from "@/utils/Date/dateUtils";
 
 interface DistributionLineCardProps {
   distributionLine: DistributionLine;
@@ -25,6 +29,17 @@ const DistributionLineCard = (props: DistributionLineCardProps) => {
     ).length;
   }, [props.distributionLine, orders]);
 
+  const dateTextStyle = useMemo(() => {
+    const date = props.distributionLine.scheduledDate;
+    if (hasDatePassed(date)) {
+      return styles.passedDate;
+    }
+    if (isToday(date)) {
+      return styles.todayDate;
+    }
+    return styles.lineInfoValue;
+  }, [props.distributionLine.scheduledDate]);
+
   return (
     <View style={[styles.cardContainer, props.style]}>
       <Text style={styles.lineTitle}>
@@ -37,7 +52,7 @@ const DistributionLineCard = (props: DistributionLineCardProps) => {
         </View>
         <View style={styles.infoRow}>
           <Text style={styles.lineInfoTitle}>תאריך:</Text>
-          <Text style={styles.lineInfoValue}>
+          <Text style={dateTextStyle}>
             {formatDateWithDay(props.distributionLine.scheduledDate)}
           </Text>
         </View>
@@ -86,5 +101,15 @@ const styles = StyleSheet.create({
   lineInfoValue: {
     fontSize: ScreenWidth * 0.04,
     color: "#333",
+  },
+  passedDate: {
+    fontSize: ScreenWidth * 0.04,
+    color: "#FF3B30",
+    fontWeight: "500",
+  },
+  todayDate: {
+    fontSize: ScreenWidth * 0.04,
+    color: "#34C759",
+    fontWeight: "500",
   },
 });

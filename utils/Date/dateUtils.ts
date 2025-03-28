@@ -65,3 +65,19 @@ export const compareDates = (dateA: string, dateB: string): number => {
 export const getTodaysDistributionTitle = (): string => {
   return `קו חלוקה - יום ${getCurrentDayName()} ${getCurrentDate()}`;
 };
+
+/**
+ * Checks if a date in DD/MM/YYYY format is today
+ */
+export const isToday = (date: string): boolean => {
+  const today = getCurrentDate();
+  return compareDates(date, today) === 0;
+};
+
+/**
+ * Checks if a date in DD/MM/YYYY format has passed (is before today)
+ */
+export const hasDatePassed = (date: string): boolean => {
+  const today = getCurrentDate();
+  return compareDates(date, today) < 0;
+};
