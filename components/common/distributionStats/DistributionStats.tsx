@@ -5,8 +5,10 @@ import {
   StyleSheet,
   Animated,
   TouchableOpacity,
+  StyleProp,
+  ViewStyle,
 } from "react-native";
-import Date from "@/utils/Date/Date";
+import { getTodaysDistributionTitle } from "@/utils/Date/dateUtils";
 import DistributionProgress from "./DistributionProgress";
 import { ScreenWidth, ScreenHeight } from "@/constants/Dimensions";
 import Ionicons from "@expo/vector-icons/Ionicons";
@@ -15,13 +17,10 @@ import { useRouter } from "expo-router";
 const stackedSacks = require("@/assets/images/stackedSacks.png");
 const distributionRoute = require("@/assets/images/distributionRoute.png");
 
-const getTodaysTitle = (): string => {
-  return `קו חלוקה - יום ${Date.getCurrentDayName()} ${Date.getCurrentDate()}`;
-};
-
 interface DistributionStatsProps {
   customTitle?: string;
   collapsable?: boolean;
+  statsBoxStyle?: StyleProp<ViewStyle>;
 }
 
 export const DistributionStats = (props: DistributionStatsProps) => {
@@ -74,10 +73,10 @@ export const DistributionStats = (props: DistributionStatsProps) => {
   });
 
   return (
-    <View style={styles.statsContainer}>
+    <View style={[styles.statsContainer, props.statsBoxStyle]}>
       <TouchableOpacity onPress={toggleExpansion} style={styles.header}>
         <Text style={styles.statsTitle}>
-          {props.customTitle ? props.customTitle : getTodaysTitle()}
+          {props.customTitle ? props.customTitle : getTodaysDistributionTitle()}
         </Text>
         <Animated.View
           style={{ transform: [{ rotate: arrowRotationInterpolation }] }}
@@ -85,7 +84,7 @@ export const DistributionStats = (props: DistributionStatsProps) => {
           <Ionicons name="caret-down" size={18} color="#001B61" />
         </Animated.View>
       </TouchableOpacity>
-      <TouchableOpacity onPress={() => router.navigate("/distributionLine")}>
+      <TouchableOpacity onPress={() => router.navigate("/distributionLines")}>
         <Animated.View
           style={[styles.progressesContainer, { height: heightInterpolation }]}
         >

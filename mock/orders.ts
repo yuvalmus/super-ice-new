@@ -10,6 +10,7 @@ export const orders: Order[] = [
     creationDate: "31/10/2024",
     suppliedDate: "01/11/2024",
     debtLeft: 240,
+    position: 0,
   },
   {
     id: 2,
@@ -22,5 +23,6 @@ export const orders: Order[] = [
     debtLeft: 0,
     paymentMethod: "cheque",
     deliveryDocument: "receipt",
+    position: 0,
   },
 ];
