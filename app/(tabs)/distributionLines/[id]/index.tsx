@@ -1,7 +1,7 @@
-import { View, StyleSheet, TouchableOpacity } from "react-native";
+import { View, StyleSheet, TouchableOpacity, BackHandler } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDistributionLine } from "../_layout";
-import { router, useLocalSearchParams } from "expo-router";
+import { router, useLocalSearchParams, useRouter } from "expo-router";
 import { Order } from "@/models/Order";
 import { DistributionLine } from "@/models/DistributionLine";
 import { ScreenWrapper } from "@/components/ScreenWrapper";
@@ -22,14 +22,38 @@ import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
 
 const DistributionLineScreen = () => {
   const { setDistributionLineDetails } = useDistributionLine();
-  const { id } = useLocalSearchParams();
+  const { id, fromOrder, orderId } = useLocalSearchParams();
   const [orders, setOrders] = useState<Order[]>([]);
   const [isLoading, setIsLoading] = useState(true);
   const [isUpdating, setIsUpdating] = useState(false);
   const [distributionLine, setDistributionLine] =
     useState<DistributionLine | null>(null);
-
   const distributionLineId = Number(id);
+  const router = useRouter();
+
+  const handleBack = () => {
+    if (fromOrder === "true" && orderId) {
+      router.replace("/(tabs)/distributionLines");
+      router.push({
+        pathname: "/(tabs)/orders/[id]",
+        params: { id: String(orderId) },
+      });
+    } else {
+      router.push("/(tabs)/distributionLines");
+    }
+  };
+
+  useEffect(() => {
+    const backHandler = BackHandler.addEventListener(
+      "hardwareBackPress",
+      () => {
+        handleBack();
+        return true; // Prevent default back behavior
+      }
+    );
+
+    return () => backHandler.remove();
+  }, [fromOrder, orderId]);
 
   // Fetch distribution line details
   useEffect(() => {
@@ -60,10 +84,6 @@ const DistributionLineScreen = () => {
       setOrders,
       setIsUpdating
     );
-  };
-
-  const handleBack = () => {
-    router.back();
   };
 
   if (isLoading) {

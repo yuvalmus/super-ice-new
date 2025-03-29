@@ -46,17 +46,16 @@ const MainInfo = () => {
   };
 
   const handleDistributionLinePress = () => {
-    // TODO: Implement navigation to distribution line screen when ready
-    // if (orderDetails?.attachedDistributionLineId) {
-    //   router.push({
-    //     pathname: "/(tabs)/distributionLine",
-    //     params: {
-    //       id: orderDetails.attachedDistributionLineId,
-    //       fromOrder: "true",
-    //       orderId: orderDetails.id,
-    //     },
-    //   });
-    // }
+    if (orderDetails?.attachedDistributionLineId) {
+      router.push({
+        pathname: "/(tabs)/distributionLines/[id]",
+        params: {
+          id: orderDetails.attachedDistributionLineId,
+          fromOrder: "true",
+          orderId: orderDetails.id,
+        },
+      });
+    }
   };
 
   return (

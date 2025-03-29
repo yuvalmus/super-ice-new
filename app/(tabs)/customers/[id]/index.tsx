@@ -15,9 +15,7 @@ export default function CustomerScreen() {
 
   const handleBack = () => {
     if (fromOrder === "true" && orderId) {
-      // First navigate to the customers tab to reset the navigation state
       router.replace("/(tabs)/customers");
-      // Then navigate to the order screen
       router.push({
         pathname: "/(tabs)/orders/[id]",
         params: { id: String(orderId) },

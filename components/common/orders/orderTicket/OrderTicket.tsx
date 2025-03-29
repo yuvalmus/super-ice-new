@@ -94,7 +94,15 @@ const OrderTicket = (props: OrderTicketProps) => {
         />
       </Svg>
       <View style={styles.content}>
-        {props.title && <Text style={styles.headerText}>{props.title}</Text>}
+        {props.title && (
+          <Text
+            style={styles.headerText}
+            numberOfLines={1}
+            lineBreakMode="tail"
+          >
+            {props.title}
+          </Text>
+        )}
         {props.regularDetails?.map((detail, index) => (
           <View key={index} style={styles.line}>
             <Text style={styles.regularText}>{detail.title}</Text>
@@ -148,7 +156,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: "#FFFBF3",
     textAlign: "center",
-    fontSize: ScreenWidth * 0.05,
+    fontSize: ScreenWidth * 0.04,
     fontWeight: "bold",
     marginBottom: ScreenHeight * 0.015,
   },
