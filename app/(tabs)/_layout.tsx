@@ -1,7 +1,10 @@
 import { Tabs } from "expo-router";
 import React from "react";
 
-import { IoniconsTabBarIcon, MatCommunityTabBarIcon } from "@/components/navigation/TabBarIcon";
+import {
+  IoniconsTabBarIcon,
+  MatCommunityTabBarIcon,
+} from "@/components/navigation/TabBarIcon";
 import { Colors } from "@/constants/Colors";
 import { useColorScheme } from "@/hooks/useColorScheme";
 
@@ -40,9 +43,9 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="distributionLine"
+        name="distributionLines"
         options={{
-          title: "קו חלוקה",
+          title: "קווי חלוקה",
           tabBarIcon: ({ color, focused }) => (
             <MatCommunityTabBarIcon
               name={focused ? "truck-fast" : "truck-fast-outline"}
