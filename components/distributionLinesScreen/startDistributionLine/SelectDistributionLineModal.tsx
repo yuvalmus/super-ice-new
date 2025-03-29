@@ -28,6 +28,7 @@ const SelectDistributionLineModal = (
       isVisible={props.isVisible}
       onSelect={props.onSelect}
       onClose={props.onClose}
+      itemIdExtractor={(line) => line.id}
       title="בחר קו חלוקה"
       startButtonText="התחל קו חלוקה"
       items={sortedDriverLines}

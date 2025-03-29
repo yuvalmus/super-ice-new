@@ -7,6 +7,7 @@ interface SelectionModalProps {
   isVisible: boolean;
   onSelect: (selectedItemId: number) => void;
   onClose: () => void;
+  itemIdExtractor: (item: any) => number;
   title: string;
   startButtonText: string;
   items: any[];
@@ -35,12 +36,16 @@ const SelectionModal = (props: SelectionModalProps) => {
           showsVerticalScrollIndicator={true}
         >
           {props.items.map((item, index) => (
-            <View key={item.id} style={index > 0 && styles.cardMargin}>
+            <View
+              key={props.itemIdExtractor(item)}
+              style={index > 0 && styles.cardMargin}
+            >
               <Pressable
-                onPress={() => handleSelect(item.id)}
+                onPress={() => handleSelect(props.itemIdExtractor(item))}
                 style={({ pressed }) => [
                   styles.cardWrapper,
-                  selectedItemId === item.id && styles.selectedCard,
+                  selectedItemId === props.itemIdExtractor(item) &&
+                    styles.selectedCard,
                   pressed && styles.pressed,
                 ]}
               >
