@@ -7,8 +7,9 @@ import {
   StyleSheet,
 } from "react-native";
 import React from "react";
-import { Bar } from "react-native-progress";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
+import { useProgressAnimation } from "./animations/useProgressAnimation";
+import AnimatedBalls from "./animations/AnimatedBalls";
 
 interface DistributionProgressProps {
   amount: number;
@@ -28,18 +29,41 @@ const DistributionProgress = (props: DistributionProgressProps) => {
     return props.amount / props.capacity;
   };
 
+  const progressWidth = ScreenWidth * 0.65;
+  const progress = getProgress();
+  const { ballAnimations, getBallStyle, isReady } = useProgressAnimation({
+    progress,
+    maxWidth: progressWidth * progress,
+  });
+
   return (
     <View style={styles.progressContainer}>
-      <Bar
-        style={{ transform: [{ scaleX: I18nManager.isRTL ? 1 : -1 }] }}
-        progress={getProgress()}
-        width={ScreenWidth * 0.65}
-        height={ScreenHeight * 0.023}
-        borderRadius={100}
-        color="#21a7fd"
-        unfilledColor="#D9D9D9"
-        borderWidth={0}
-      />
+      <View style={styles.progressBarContainer}>
+        <View
+          style={[
+            styles.progressBar,
+            {
+              width: progressWidth,
+              transform: [{ scaleX: I18nManager.isRTL ? 1 : -1 }],
+            },
+          ]}
+        >
+          <View
+            style={[
+              styles.filledProgress,
+              {
+                width: `${progress * 100}%`,
+              },
+            ]}
+          >
+            <AnimatedBalls
+              ballAnimations={ballAnimations}
+              getBallStyle={getBallStyle}
+              isReady={isReady}
+            />
+          </View>
+        </View>
+      </View>
       {/* amount text */}
       <Text
         style={[
@@ -87,6 +111,22 @@ const styles = StyleSheet.create({
     justifyContent: "space-between",
     alignItems: "center",
     width: "89%",
+  },
+  progressBarContainer: {
+    overflow: "hidden",
+    borderRadius: 100,
+    backgroundColor: "#D9D9D9",
+    width: ScreenWidth * 0.65,
+    height: ScreenHeight * 0.023,
+  },
+  progressBar: {
+    height: "100%",
+    overflow: "hidden",
+  },
+  filledProgress: {
+    height: "100%",
+    backgroundColor: "#21a7fd",
+    position: "relative",
   },
   imageStyle: {
     width: "11%",

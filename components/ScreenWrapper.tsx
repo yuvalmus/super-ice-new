@@ -1,13 +1,10 @@
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
-import { Ionicons } from "@expo/vector-icons";
-import React, { ComponentProps, ReactNode } from "react";
+import React, { ReactNode } from "react";
 import {
   StyleSheet,
   StatusBar,
   ImageBackground,
-  GestureResponderEvent,
   View,
-  TouchableOpacity,
   ScrollView,
   Text,
   StyleProp,
@@ -23,7 +20,7 @@ interface ScreenWrapperProps {
   style?: object;
   topButton?: ReactNode;
   topSectionStyle?: StyleProp<ViewStyle>;
-  disableScroll?: boolean; // useful when the screen has a list or different scrollview that can interfere
+  disableScroll?: boolean;
 }
 
 export const ScreenWrapper = (props: ScreenWrapperProps) => {
@@ -73,6 +70,7 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   screenScrollViewStyle: {
-    paddingBottom: ScreenHeight * 0.06,
+    paddingBottom: ScreenHeight * 0.01,
+    flex: 1,
   },
 });

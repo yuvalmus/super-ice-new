@@ -7,6 +7,7 @@ export interface Order {
   amountRequired: number;
   amountSupplied: number;
   attachedDistributionLineId: number | null;
+  position: number | null;
   creationDate: string;
   suppliedDate: string | null;
   isPaid: boolean;

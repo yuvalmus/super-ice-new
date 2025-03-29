@@ -37,7 +37,7 @@ const PendingOrders = (props: PendingOrdersProps) => {
       style={{
         alignItems: "center",
         marginTop: ScreenHeight * 0.01,
-        paddingBottom: ScreenHeight * 0.2,
+        paddingBottom: ScreenHeight * 0.1,
       }}
     >
       <SectionList
@@ -46,10 +46,7 @@ const PendingOrders = (props: PendingOrdersProps) => {
         keyExtractor={(item) => item.id.toString()}
         contentContainerStyle={styles.sectionListStyle}
         renderItem={({ item: order }) => (
-          <PendingOrderTicket
-            order={order}
-            onOrderPress={props.onOrderPress}
-          />
+          <PendingOrderTicket order={order} onOrderPress={props.onOrderPress} />
         )}
         renderSectionHeader={({ section: { title } }) =>
           title ? (

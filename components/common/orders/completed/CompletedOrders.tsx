@@ -36,7 +36,7 @@ const CompletedOrders = (props: CompletedOrdersProps) => {
       style={{
         alignItems: "center",
         marginTop: ScreenHeight * 0.01,
-        paddingBottom: ScreenHeight * 0.2,
+        paddingBottom: ScreenHeight * 0.1,
       }}
     >
       <SectionList
