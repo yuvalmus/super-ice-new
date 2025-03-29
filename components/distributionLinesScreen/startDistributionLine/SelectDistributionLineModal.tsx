@@ -7,7 +7,7 @@ import SelectionModal from "@/components/common/selectionModal/SelectionModal";
 
 interface SelectDistributionLineModalProps {
   isVisible: boolean;
-  onSelect: (selectedLineId: number) => void;
+  onSelect: (selectedIds: number[]) => void;
   onClose: () => void;
 }
 

@@ -5,25 +5,34 @@ import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 
 interface SelectionModalProps {
   isVisible: boolean;
-  onSelect: (selectedItemId: number) => void;
+  onSelect: (selectedIds: number[]) => void;
   onClose: () => void;
   itemIdExtractor: (item: any) => number;
   title: string;
   startButtonText: string;
   items: any[];
   renderItem: (item: any) => React.ReactNode;
+  multiple?: boolean;
 }
 
 const SelectionModal = (props: SelectionModalProps) => {
-  const [selectedItemId, setSelectedItemId] = useState<number | null>(null);
+  const [selectedItems, setSelectedItems] = useState<number[]>([]);
 
   const handleClose = () => {
-    setSelectedItemId(null);
+    setSelectedItems([]);
     props.onClose();
   };
 
   const handleSelect = (itemId: number) => {
-    setSelectedItemId(itemId);
+    if (props.multiple) {
+      setSelectedItems((prev) =>
+        prev.includes(itemId)
+          ? prev.filter((id) => id !== itemId)
+          : [...prev, itemId]
+      );
+    } else {
+      setSelectedItems([itemId]);
+    }
   };
 
   return (
@@ -35,33 +44,32 @@ const SelectionModal = (props: SelectionModalProps) => {
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={true}
         >
-          {props.items.map((item, index) => (
-            <View
-              key={props.itemIdExtractor(item)}
-              style={index > 0 && styles.cardMargin}
-            >
-              <Pressable
-                onPress={() => handleSelect(props.itemIdExtractor(item))}
-                style={({ pressed }) => [
-                  styles.cardWrapper,
-                  selectedItemId === props.itemIdExtractor(item) &&
-                    styles.selectedCard,
-                  pressed && styles.pressed,
-                ]}
-              >
-                {props.renderItem(item)}
-              </Pressable>
-            </View>
-          ))}
+          {props.items.map((item, index) => {
+            const itemId = props.itemIdExtractor(item);
+            return (
+              <View key={itemId} style={index > 0 && styles.cardMargin}>
+                <Pressable
+                  onPress={() => handleSelect(itemId)}
+                  style={({ pressed }) => [
+                    styles.cardWrapper,
+                    selectedItems.includes(itemId) && styles.selectedCard,
+                    pressed && styles.pressed,
+                  ]}
+                >
+                  {props.renderItem(item)}
+                </Pressable>
+              </View>
+            );
+          })}
         </ScrollView>
-        {selectedItemId && (
+        {selectedItems.length > 0 && (
           <Pressable
             style={({ pressed }) => [
               styles.startButton,
               pressed && styles.buttonPressed,
             ]}
             onPress={() => {
-              props.onSelect(selectedItemId);
+              props.onSelect(selectedItems);
               handleClose();
             }}
           >

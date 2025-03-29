@@ -14,7 +14,7 @@ const StartDistributionLine = () => {
       <Text style={styles.title}>התחל קו חלוקה</Text>
       <SelectDistributionLineModal
         isVisible={isModalVisible}
-        onSelect={(selectedLineId: number) => {
+        onSelect={(selectedLineIds: number[]) => {
           // TODO: set the selected line as the active line for the driver
         }}
         onClose={() => setIsModalVisible(false)}
