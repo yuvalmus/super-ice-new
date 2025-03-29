@@ -1,11 +1,5 @@
 import { ScreenWrapper } from "@/components/ScreenWrapper";
-import {
-  FlatList,
-  View,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-} from "react-native";
+import { FlatList, Text, StyleSheet, TouchableOpacity } from "react-native";
 import DistributionLineCard from "@/components/distributionLinesScreen/distributionLineCard/DistributionLineCard";
 import { distributionLines } from "@/mock/distributionLines";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
@@ -16,6 +10,7 @@ import SegmentedControl from "@react-native-segmented-control/segmented-control"
 import { compareDates } from "@/utils/Date/dateUtils";
 import { Ionicons } from "@expo/vector-icons";
 import ActiveDistributionLineStats from "@/components/common/distributionStats/ActiveDistributionLineStats";
+import { useRouter } from "expo-router";
 
 type DistributionLineFilter = "הקווים שלי" | "קווים אחרים";
 const SegmentIndices: Record<DistributionLineFilter, number> = {
@@ -28,6 +23,7 @@ export default function DistributionLineScreen() {
   const [selectedIndex, setSelectedIndex] = useState<number>(
     SegmentIndices["הקווים שלי"]
   );
+  const router = useRouter();
 
   const activeDistributionLine = useMemo(() => {
     const currentDriver = drivers.find(
@@ -81,7 +77,11 @@ export default function DistributionLineScreen() {
       <FlatList
         data={filteredDistributionLines}
         renderItem={({ item }) => (
-          <TouchableOpacity onPress={() => {}}>
+          <TouchableOpacity
+            onPress={() => {
+              router.push(`/distributionLines/${item.id}`);
+            }}
+          >
             <DistributionLineCard
               distributionLine={item}
               style={{ marginTop: ScreenHeight * 0.02 }}
@@ -89,11 +89,6 @@ export default function DistributionLineScreen() {
           </TouchableOpacity>
         )}
         keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={{
-          paddingBottom: activeDistributionLine
-            ? ScreenHeight * 0.4
-            : ScreenHeight * 0.25,
-        }}
         ListEmptyComponent={() => (
           <Text style={styles.noResultsTextStyle}>אין תוצאות מתאימות</Text>
         )}

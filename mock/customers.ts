@@ -25,4 +25,28 @@ export const customers: Customer[] = [
     bagPrice2kg: 6,
     freezerId: null,
   },
+  {
+    businessNumber: 4,
+    name: "מעדני בנימין",
+    address: "המלאכה 8 פתח תקווה",
+    distributionAreaId: 5,
+    bagPrice2kg: 5.5,
+    freezerId: null,
+  },
+  {
+    businessNumber: 5,
+    name: "רמי לוי רעננה",
+    address: "החרושת 14 רעננה",
+    distributionAreaId: 6,
+    bagPrice2kg: 6.5,
+    freezerId: 2,
+  },
+  {
+    businessNumber: 6,
+    name: "הפינה החמה",
+    address: "סחרוב 11 ראשון לציון",
+    distributionAreaId: 9,
+    bagPrice2kg: 6,
+    freezerId: null,
+  },
 ];
