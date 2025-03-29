@@ -20,7 +20,7 @@ export const customers: Customer[] = [
   {
     businessNumber: 3,
     name: "יין בעיר שילת",
-    address: "איזשהו רחוב 4 שילת",
+    address: "שדרות המלאכות 15 שילת",
     distributionAreaId: 7,
     bagPrice2kg: 6,
     freezerId: null,
@@ -28,7 +28,7 @@ export const customers: Customer[] = [
   {
     businessNumber: 4,
     name: "מעדני בנימין",
-    address: "המלאכה 8 פתח תקווה",
+    address: "רמבם 25 פתח תקווה",
     distributionAreaId: 5,
     bagPrice2kg: 5.5,
     freezerId: null,
