@@ -6,7 +6,7 @@ export const orders: Order[] = [
     customerId: 3,
     attachedDistributionLineId: 1,
     amountRequired: 40,
-    amountSupplied: 40,
+    amountSupplied: 0,
     creationDate: "31/10/2024",
     suppliedDate: "01/11/2024",
     debtLeft: 240,

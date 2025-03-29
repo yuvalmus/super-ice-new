@@ -97,6 +97,12 @@ const DistributionLineScreen = () => {
               style={{ alignSelf: "flex-start" }}
               onPress={() => {}}
             >
+              <Ionicons name="checkmark-circle" size={28} color="#001B61" />
+            </TouchableOpacity>
+            <TouchableOpacity
+              style={{ alignSelf: "flex-start" }}
+              onPress={() => {}}
+            >
               <Ionicons name="add" size={28} color="#001B61" />
             </TouchableOpacity>
             <TouchableOpacity
