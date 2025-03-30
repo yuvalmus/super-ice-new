@@ -1,7 +1,9 @@
 import { StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import React, { useState } from "react";
 import { ScreenWidth, ScreenHeight } from "@/constants/Dimensions";
-import SelectDistributionLineModal from "./SelectDistributionLineModal";
+import SelectDistributionLineModal from "@/components/common/selectionModal/selectableModals/SelectDistributionLineModal";
+import { userState } from "@/mock/userState";
+import { compareDates } from "@/utils/Date/dateUtils";
 
 const StartDistributionLine = () => {
   const [isModalVisible, setIsModalVisible] = useState(false);
@@ -14,6 +16,10 @@ const StartDistributionLine = () => {
       <Text style={styles.title}>התחל קו חלוקה</Text>
       <SelectDistributionLineModal
         isVisible={isModalVisible}
+        filterRules={(line) =>
+          line.driverId === userState.userId && !line.isCompleted
+        }
+        sort={(a, b) => compareDates(a.scheduledDate, b.scheduledDate)}
         onSelect={(selectedLineIds: number[]) => {
           // TODO: set the selected line as the active line for the driver
         }}

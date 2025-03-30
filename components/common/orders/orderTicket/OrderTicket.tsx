@@ -1,16 +1,7 @@
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
-import { distributionLines } from "@/mock/distributionLines";
 import { Order } from "@/models/Order";
-import { useRouter } from "expo-router";
 import React, { ReactNode } from "react";
-import {
-  View,
-  StyleSheet,
-  Text,
-  StyleProp,
-  ViewStyle,
-  TouchableOpacity,
-} from "react-native";
+import { View, StyleSheet, Text, StyleProp, ViewStyle } from "react-native";
 import Svg, { Path } from "react-native-svg";
 
 const generateTornEdgePath = (
@@ -29,11 +20,6 @@ const generateTornEdgePath = (
 
   path += `L${width} ${height} L${width} 0 Z`;
   return path;
-};
-
-export const getDistributionLineDate = (distributionLineId: number) => {
-  return distributionLines.find((line) => line.id === distributionLineId)
-    ?.scheduledDate;
 };
 
 export interface OrderTicketDetail {
@@ -55,7 +41,6 @@ interface OrderTicketProps {
 const OrderTicket = (props: OrderTicketProps) => {
   const MIN_HEIGHT = ScreenHeight * 0.03;
   const NUM_OF_RIPS = 15;
-  const router = useRouter();
 
   const calculateTicketHeight = () => {
     return (
@@ -69,12 +54,7 @@ const OrderTicket = (props: OrderTicketProps) => {
 
   const height = MIN_HEIGHT + calculateTicketHeight();
   return (
-    <TouchableOpacity
-      onPress={() =>
-        props.onOrderPress
-          ? props.onOrderPress(props.order.id)
-          : router.push(`/orders/${props.order.id}`)
-      }
+    <View
       style={[
         styles.container,
         { width: props.width, height: height },
@@ -130,7 +110,7 @@ const OrderTicket = (props: OrderTicketProps) => {
           </View>
         ))}
       </View>
-    </TouchableOpacity>
+    </View>
   );
 };
 

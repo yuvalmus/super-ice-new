@@ -17,9 +17,10 @@ import { AlertButton, useAlert } from "@/contexts/AlertContext";
 import { userState } from "@/mock/userState";
 import { drivers } from "@/mock/drivers";
 import { distributionLines } from "@/mock/distributionLines";
-import SelectDistributionLineModal from "@/components/distributionLinesScreen/startDistributionLine/SelectDistributionLineModal";
+import SelectDistributionLineModal from "@/components/common/selectionModal/selectableModals/SelectDistributionLineModal";
 import { DistributionLine } from "@/models/DistributionLine";
 import { getOrderStatus } from "@/utils/Order/OrderUtils";
+import { compareDates } from "@/utils/Date/dateUtils";
 
 const addToDistributionLineIcon = require("@/assets/images/addToDistributionLine.png");
 
@@ -215,6 +216,7 @@ const OrderDetailsScreen = () => {
       <OrderDetails />
       <SelectDistributionLineModal
         isVisible={isModalVisible}
+        sort={(a, b) => compareDates(a.scheduledDate, b.scheduledDate)}
         startButtonText="הכנסה לקו חלוקה"
         onSelect={(selectedLineIds: number[]) => {
           setOrderDetails((prev) => {

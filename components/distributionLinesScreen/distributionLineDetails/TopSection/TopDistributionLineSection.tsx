@@ -1,13 +1,17 @@
 import { BackHandler, StyleSheet, TouchableOpacity, View } from "react-native";
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
 import { useAlert } from "@/contexts/AlertContext";
+import SelectOrdersModal from "@/components/common/selectionModal/selectableModals/SelectOrdersModal";
+import { getOrderStatus } from "@/utils/Order/OrderUtils";
+import { orders } from "@/mock/orders";
 
 const TopDistributionLineSection = () => {
-  const { fromOrder, orderId } = useLocalSearchParams();
+  const { id, fromOrder, orderId } = useLocalSearchParams();
   const { showAlert } = useAlert();
+  const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleBack = () => {
     if (fromOrder === "true" && orderId) {
@@ -48,12 +52,18 @@ const TopDistributionLineSection = () => {
         {
           text: "הוספת הזמנות קיימות",
           style: "default",
-          onPress: () => {
-            console.log("הוספת הזמנות קיימות");
-          },
+          onPress: () => setIsModalVisible(true),
         },
       ]
     );
+  };
+
+  const handleSelectOrders = (selectedIds: number[]) => {
+    orders.forEach((order) => {
+      if (selectedIds.includes(order.id)) {
+        order.attachedDistributionLineId = Number(id);
+      }
+    });
   };
 
   return (
@@ -94,6 +104,17 @@ const TopDistributionLineSection = () => {
           />
         </TouchableOpacity>
       </View>
+
+      <SelectOrdersModal
+        isVisible={isModalVisible}
+        filterRules={(order) =>
+          (getOrderStatus(order) === "newOrder" ||
+            getOrderStatus(order) === "pending") &&
+          order.attachedDistributionLineId !== Number(id)
+        }
+        onSelect={handleSelectOrders}
+        onClose={() => setIsModalVisible(false)}
+      />
     </View>
   );
 };

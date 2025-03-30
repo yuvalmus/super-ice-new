@@ -1,4 +1,12 @@
-import { StyleSheet, Text, View, ScrollView, Pressable } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  View,
+  ScrollView,
+  Pressable,
+  StyleProp,
+  ViewStyle,
+} from "react-native";
 import React, { useState } from "react";
 import SwipeableModal from "@/components/common/swipeableModal/SwipeableModal";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
@@ -10,9 +18,11 @@ interface SelectionModalProps {
   itemIdExtractor: (item: any) => number;
   title: string;
   startButtonText: string;
+  contentContainerStyle?: StyleProp<ViewStyle>;
   items: any[];
   renderItem: (item: any) => React.ReactNode;
   multiple?: boolean;
+  noItemsText: string;
 }
 
 const SelectionModal = (props: SelectionModalProps) => {
@@ -37,30 +47,36 @@ const SelectionModal = (props: SelectionModalProps) => {
 
   return (
     <SwipeableModal isVisible={props.isVisible} onClose={handleClose}>
-      <View style={styles.container}>
+      <View style={[styles.container, props.contentContainerStyle]}>
         <Text style={styles.title}>{props.title}</Text>
         <ScrollView
           style={styles.scrollView}
           contentContainerStyle={styles.scrollContent}
           showsVerticalScrollIndicator={true}
         >
-          {props.items.map((item, index) => {
-            const itemId = props.itemIdExtractor(item);
-            return (
-              <View key={itemId} style={index > 0 && styles.cardMargin}>
-                <Pressable
-                  onPress={() => handleSelect(itemId)}
-                  style={({ pressed }) => [
-                    styles.cardWrapper,
-                    selectedItems.includes(itemId) && styles.selectedCard,
-                    pressed && styles.pressed,
-                  ]}
-                >
-                  {props.renderItem(item)}
-                </Pressable>
-              </View>
-            );
-          })}
+          {props.items.length > 0 ? (
+            props.items.map((item, index) => {
+              const itemId = props.itemIdExtractor(item);
+              return (
+                <View key={itemId} style={index > 0 && styles.cardMargin}>
+                  <Pressable
+                    onPress={() => handleSelect(itemId)}
+                    style={({ pressed }) => [
+                      styles.cardWrapper,
+                      selectedItems.includes(itemId) && styles.selectedCard,
+                      pressed && styles.pressed,
+                    ]}
+                  >
+                    {props.renderItem(item)}
+                  </Pressable>
+                </View>
+              );
+            })
+          ) : (
+            <View style={styles.noItemsContainer}>
+              <Text style={styles.noItemsText}>{props.noItemsText}</Text>
+            </View>
+          )}
         </ScrollView>
         {selectedItems.length > 0 && (
           <Pressable
@@ -130,6 +146,16 @@ const styles = StyleSheet.create({
     color: "white",
     fontWeight: "600",
     fontSize: ScreenWidth * 0.045,
+  },
+  noItemsContainer: {
+    flex: 1,
+    justifyContent: "center",
+    alignItems: "center",
+  },
+  noItemsText: {
+    textAlign: "center",
+    fontSize: ScreenWidth * 0.045,
+    color: "#666",
   },
 });
 
