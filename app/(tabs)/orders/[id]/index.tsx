@@ -19,6 +19,7 @@ import { drivers } from "@/mock/drivers";
 import { distributionLines } from "@/mock/distributionLines";
 import SelectDistributionLineModal from "@/components/distributionLinesScreen/startDistributionLine/SelectDistributionLineModal";
 import { DistributionLine } from "@/models/DistributionLine";
+import { getOrderStatus } from "@/utils/Order/OrderUtils";
 
 const addToDistributionLineIcon = require("@/assets/images/addToDistributionLine.png");
 
@@ -140,6 +141,13 @@ const OrderDetailsScreen = () => {
     }
   };
 
+  const canChangeDistributionLine = useMemo(() => {
+    return (
+      getOrderStatus(orderDetails as Order) === "newOrder" ||
+      getOrderStatus(orderDetails as Order) === "pending"
+    );
+  }, [orderDetails]);
+
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
       "hardwareBackPress",
@@ -200,12 +208,14 @@ const OrderDetailsScreen = () => {
                 color="#001B61"
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleAddToDistributionLine}>
-              <Image
-                source={addToDistributionLineIcon}
-                style={styles.addToDistributionLineIcon}
-              />
-            </TouchableOpacity>
+            {canChangeDistributionLine && (
+              <TouchableOpacity onPress={handleAddToDistributionLine}>
+                <Image
+                  source={addToDistributionLineIcon}
+                  style={styles.addToDistributionLineIcon}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       }
