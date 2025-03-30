@@ -1,7 +1,7 @@
 import React from "react";
 import { RenderItemParams } from "react-native-draggable-flatlist";
 import { Order } from "@/models/Order";
-import OrderItem from "@/components/distributionLinesScreen/OrderItem/OrderItem";
+import OrderItem from "@/components/distributionLinesScreen/distributionLineDetails/OrderItem/OrderItem";
 import DraggableList from "@/components/common/draggableList/DraggableList";
 
 interface DraggableOrderListProps {
