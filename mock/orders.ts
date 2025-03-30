@@ -16,7 +16,7 @@ export const orders: Order[] = [
   {
     id: 2,
     customerId: 1,
-    attachedDistributionLineId: 1,
+    attachedDistributionLineId: null,
     amountRequired: 40,
     amountSupplied: 0,
     creationDate: "02/11/2024",
@@ -37,7 +37,7 @@ export const orders: Order[] = [
     suppliedDate: null,
     totalPrice: 0,
     isPaid: false,
-    position: 2,
+    position: 1,
   },
   {
     id: 4,
@@ -49,7 +49,7 @@ export const orders: Order[] = [
     suppliedDate: null,
     totalPrice: 0,
     isPaid: false,
-    position: 3,
+    position: 2,
   },
   {
     id: 5,
@@ -61,6 +61,6 @@ export const orders: Order[] = [
     suppliedDate: null,
     totalPrice: 0,
     isPaid: false,
-    position: 4,
+    position: 3,
   },
 ];

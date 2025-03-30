@@ -10,40 +10,41 @@ import { useOrder } from "@/app/(tabs)/orders/_layout";
 import { distributionLines } from "@/mock/distributionLines";
 import { ScreenWidth } from "@/constants/Dimensions";
 
-const notHandled = require("@/assets/images/receivedOrder.png");
+const newOrder = require("@/assets/images/receivedOrder.png");
 const pending = require("@/assets/images/pending.png");
-const deliveredNotPaid = require("@/assets/images/deliveredNotPaid.png");
+const completedNotPaid = require("@/assets/images/completedNotPaid.png");
 const completed = require("@/assets/images/completed.png");
 
-type OrderStatus = "notHandled" | "pending" | "deliveredNotPaid" | "completed";
+type OrderStatus = "newOrder" | "pending" | "completedNotPaid" | "completed";
 
 const OrderStatus = () => {
   const { orderDetails } = useOrder();
 
   const statusToText: Record<OrderStatus, string> = {
-    notHandled: "לא טופל",
+    newOrder: "הזמנה חדשה",
     pending: "ממתין לביצוע",
-    deliveredNotPaid: "בוצע ולא שולם",
+    completedNotPaid: "בוצע ולא שולם",
     completed: "בוצע ושולם",
   };
 
   const statusToColor: Record<OrderStatus, string> = {
-    notHandled: "#000",
+    newOrder: "#000",
     pending: "#EA9C00",
-    deliveredNotPaid: "#ff0000",
+    completedNotPaid: "#ff0000",
     completed: "#38d313",
   };
 
   const statusToIcon: Record<OrderStatus, ImageSourcePropType> = {
-    notHandled,
+    newOrder,
     pending,
-    deliveredNotPaid,
+    completedNotPaid,
     completed,
   };
 
-  const getOrderStatus = useMemo((): () => OrderStatus => {
+  // TODO: use this status also for the lists of orders
+  const getOrderStatus = useMemo((): (() => OrderStatus) => {
     return () => {
-      if (orderDetails?.attachedDistributionLineId === null) return "notHandled";
+      if (orderDetails?.attachedDistributionLineId === null) return "newOrder";
 
       if (
         !distributionLines.find(
@@ -52,7 +53,7 @@ const OrderStatus = () => {
       )
         return "pending";
 
-      if (!orderDetails?.isPaid) return "deliveredNotPaid";
+      if (!orderDetails?.isPaid) return "completedNotPaid";
 
       return "completed";
     };

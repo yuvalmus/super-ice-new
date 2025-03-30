@@ -1,5 +1,11 @@
 import { ScreenWrapper } from "@/components/ScreenWrapper";
-import { FlatList, Text, StyleSheet, TouchableOpacity } from "react-native";
+import {
+  FlatList,
+  Text,
+  StyleSheet,
+  TouchableOpacity,
+  ScrollView,
+} from "react-native";
 import DistributionLineCard from "@/components/distributionLinesScreen/distributionLineCard/DistributionLineCard";
 import { distributionLines } from "@/mock/distributionLines";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
@@ -24,15 +30,6 @@ export default function DistributionLineScreen() {
     SegmentIndices["הקווים שלי"]
   );
   const router = useRouter();
-
-  const activeDistributionLine = useMemo(() => {
-    const currentDriver = drivers.find(
-      (driver) => driver.id === userState.userId
-    );
-    return distributionLines.find(
-      (line) => line.driverId === currentDriver?.activeDistributionLineId
-    );
-  }, [drivers, userState]);
 
   const filteredDistributionLines = useMemo(() => {
     const currentDriver = drivers.find(
@@ -73,9 +70,12 @@ export default function DistributionLineScreen() {
           setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
         }}
       />
-
       <FlatList
         data={filteredDistributionLines}
+        contentContainerStyle={{
+          alignItems: "center",
+          paddingBottom: ScreenHeight * 0.42,
+        }}
         renderItem={({ item }) => (
           <TouchableOpacity
             onPress={() => {

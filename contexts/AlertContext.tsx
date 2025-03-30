@@ -9,13 +9,13 @@ import Alert from "@/components/common/alert/Alert";
 
 type ButtonStyle = "default" | "cancel" | "destructive";
 
-interface AlertButton {
+export interface AlertButton {
   text: string;
   onPress: () => void;
   style?: ButtonStyle;
 }
 
-interface AlertOptions {
+export interface AlertOptions {
   title: string;
   message: string;
   buttons: AlertButton[];

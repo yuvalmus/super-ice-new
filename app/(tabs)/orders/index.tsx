@@ -1,5 +1,5 @@
 import CompletedNotPaidOrders from "@/components/common/orders/completedNotPaid/CompletedNotPaidOrders";
-import CompletedOrders from "@/components/common/orders/completed/CompletedOrders";
+import NewOrders from "@/components/common/orders/new/NewOrders";
 import PendingOrders from "@/components/common/orders/pending/PendingOrders";
 import { ScreenWrapper } from "@/components/ScreenWrapper";
 import { ScreenHeight } from "@/constants/Dimensions";
@@ -9,13 +9,12 @@ import { ReactElement, useMemo, useState } from "react";
 import SearchBar from "@/components/common/searchBar/SearchBar";
 import { distributionAreas } from "@/mock/distributionAreas";
 import { customers } from "@/mock/customers";
-
-type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו" | "בוצעו";
+type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו" | "חדשות";
 
 const SegmentIndices: Record<OrdersStatusOptions, number> = {
-  בוצעו: 0,
-  "בוצעו ולא שולמו": 1,
-  לביצוע: 2,
+  "בוצעו ולא שולמו": 0,
+  לביצוע: 1,
+  חדשות: 2,
 } as const;
 
 type SegmentType = keyof typeof SegmentIndices;
@@ -24,7 +23,7 @@ export default function OrdersScreen() {
   const [searchedName, setSearchedName] = useState("");
 
   const [selectedIndex, setSelectedIndex] = useState<number>(
-    SegmentIndices["לביצוע"]
+    SegmentIndices["חדשות"]
   );
 
   const sectionedData = useMemo(
@@ -49,9 +48,9 @@ export default function OrdersScreen() {
 
   const screenRenderIndexMap: Record<number, ReactElement> = useMemo(
     () => ({
-      2: <PendingOrders sectionedOrdersList={sectionedData} />,
-      1: <CompletedNotPaidOrders sectionedOrdersList={sectionedData} />,
-      0: <CompletedOrders sectionedOrdersList={sectionedData} />,
+      0: <CompletedNotPaidOrders sectionedOrdersList={sectionedData} />,
+      1: <PendingOrders sectionedOrdersList={sectionedData} />,
+      2: <NewOrders sectionedOrdersList={sectionedData} />,
     }),
     [orders, sectionedData]
   );

@@ -9,6 +9,7 @@ interface SelectDistributionLineModalProps {
   isVisible: boolean;
   onSelect: (selectedIds: number[]) => void;
   onClose: () => void;
+  startButtonText?: string;
 }
 
 const SelectDistributionLineModal = (
@@ -30,7 +31,7 @@ const SelectDistributionLineModal = (
       onClose={props.onClose}
       itemIdExtractor={(line) => line.id}
       title="בחר קו חלוקה"
-      startButtonText="התחל קו חלוקה"
+      startButtonText={props.startButtonText ?? "התחל קו חלוקה"}
       items={sortedDriverLines}
       renderItem={(line) => <DistributionLineCard distributionLine={line} />}
     />

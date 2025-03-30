@@ -194,8 +194,7 @@ const styles = StyleSheet.create({
     textDecorationLine: "underline",
   },
   noDistributionLineValue: {
-    color: "#FF6B6B",
-    textDecorationLine: "underline",
+    color: "red",
   },
   paymentMethodContainer: {
     height: ScreenWidth * 0.1,

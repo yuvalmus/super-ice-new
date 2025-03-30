@@ -1,5 +1,4 @@
 import {
-  FlatList,
   SectionList,
   SectionListData,
   StyleSheet,
@@ -14,7 +13,6 @@ import CompletedOrderTicket from "./CompletedOrderTicket";
 
 interface CompletedOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
-  disableSectionScroll?: boolean;
   onOrderPress?: (orderId: number) => void;
 }
 
@@ -32,37 +30,25 @@ const CompletedOrders = (props: CompletedOrdersProps) => {
     .filter((section) => section.data.length > 0);
 
   return (
-    <View
-      style={{
-        alignItems: "center",
-        marginTop: ScreenHeight * 0.01,
-        paddingBottom: ScreenHeight * 0.1,
-      }}
-    >
-      <SectionList
-        sections={sectionedCompletedOrders}
-        scrollEnabled={!props.disableSectionScroll}
-        keyExtractor={(item) => item.id.toString()}
-        contentContainerStyle={styles.sectionListStyle}
-        renderItem={({ item: order }) => (
-          <CompletedOrderTicket
-            order={order}
-            onOrderPress={props.onOrderPress}
-          />
-        )}
-        renderSectionHeader={({ section: { title } }) =>
-          title ? (
-            <Text style={styles.distributionAreaTitleStyle}>{title}</Text>
-          ) : (
-            <></>
-          )
-        }
-        renderSectionFooter={() => <View style={styles.separator} />}
-        ListEmptyComponent={() => (
-          <Text style={styles.noResultsTextStyle}>אין הזמנות שבוצעו</Text>
-        )}
-      />
-    </View>
+    <SectionList
+      sections={sectionedCompletedOrders}
+      keyExtractor={(item) => item.id.toString()}
+      contentContainerStyle={styles.sectionListStyle}
+      renderItem={({ item: order }) => (
+        <CompletedOrderTicket order={order} onOrderPress={props.onOrderPress} />
+      )}
+      renderSectionHeader={({ section: { title } }) =>
+        title ? (
+          <Text style={styles.distributionAreaTitleStyle}>{title}</Text>
+        ) : (
+          <></>
+        )
+      }
+      renderSectionFooter={() => <View style={styles.separator} />}
+      ListEmptyComponent={() => (
+        <Text style={styles.noResultsTextStyle}>אין הזמנות שבוצעו</Text>
+      )}
+    />
   );
 };
 
@@ -82,6 +68,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     padding: ScreenWidth * 0.04,
+    paddingBottom: ScreenHeight * 0.15,
   },
   distributionAreaTitleStyle: {
     fontSize: ScreenWidth * 0.06,

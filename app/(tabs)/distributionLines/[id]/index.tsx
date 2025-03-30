@@ -1,7 +1,7 @@
 import { View, StyleSheet, TouchableOpacity, BackHandler } from "react-native";
 import React, { useEffect, useState } from "react";
 import { useDistributionLine } from "../_layout";
-import { router, useLocalSearchParams, useRouter } from "expo-router";
+import { useLocalSearchParams, useRouter } from "expo-router";
 import { Order } from "@/models/Order";
 import { DistributionLine } from "@/models/DistributionLine";
 import { ScreenWrapper } from "@/components/ScreenWrapper";
@@ -138,26 +138,20 @@ const DistributionLineScreen = () => {
           </View>
         </View>
       }
-      disableScroll
     >
-      <View style={styles.container}>
-        {distributionLine && (
-          <DistributionLineHeader distributionLine={distributionLine} />
-        )}
-
-        <View style={styles.ordersContainer}>
-          {orders.length === 0 ? (
-            <EmptyOrdersList />
-          ) : (
-            <DraggableOrderList
-              orders={orders}
-              onDragEnd={handleOrderDragEnd}
-              onUpdateAmount={handleOrderAmountUpdate}
-            />
-          )}
-        </View>
-        <UpdatingIndicator isVisible={isUpdating} />
-      </View>
+      {distributionLine && (
+        <DistributionLineHeader distributionLine={distributionLine} />
+      )}
+      {orders.length === 0 ? (
+        <EmptyOrdersList />
+      ) : (
+        <DraggableOrderList
+          orders={orders}
+          onDragEnd={handleOrderDragEnd}
+          onUpdateAmount={handleOrderAmountUpdate}
+        />
+      )}
+      <UpdatingIndicator isVisible={isUpdating} />
     </ScreenWrapper>
   );
 };
@@ -166,13 +160,6 @@ const styles = StyleSheet.create({
   leftSideButtonsContainer: {
     flexDirection: "row",
     gap: 15,
-  },
-  container: {
-    flex: 1,
-    position: "relative",
-  },
-  ordersContainer: {
-    flex: 1,
   },
 });
 

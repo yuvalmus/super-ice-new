@@ -5,13 +5,13 @@ export const distributionLines: DistributionLine[] = [
     id: 1,
     driverId: 1,
     scheduledDate: "01/11/2024",
-    isCompleted: true,
+    isCompleted: false,
   },
   {
     id: 2,
     driverId: 1,
     scheduledDate: "04/11/2024",
-    isCompleted: false,
+    isCompleted: true,
   },
   {
     id: 3,

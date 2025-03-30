@@ -7,38 +7,33 @@ import {
 } from "react-native";
 import React from "react";
 import { Order } from "@/models/Order";
-import { distributionLines } from "@/mock/distributionLines";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
-import PendingOrderTicket from "./PendingOrderTicket";
+import NewOrderTicket from "./NewOrderTicket";
 
-interface PendingOrdersProps {
+interface NewOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
   disableScroll?: boolean;
   onOrderPress?: (orderId: number) => void;
 }
 
-const PendingOrders = (props: PendingOrdersProps) => {
-  const sectionedPendingOrders = props.sectionedOrdersList
+const NewOrders = (props: NewOrdersProps) => {
+  const sectionedNewOrders = props.sectionedOrdersList
     .map((section) => ({
       ...section,
       data: section.data.filter(
-        (order) =>
-          order.attachedDistributionLineId !== null &&
-          !distributionLines.find(
-            (line) => line.id === order.attachedDistributionLineId
-          )?.isCompleted
+        (order) => order.attachedDistributionLineId === null
       ),
     }))
     .filter((section) => section.data.length > 0);
 
   return (
     <SectionList
-      sections={sectionedPendingOrders}
+      sections={sectionedNewOrders}
       scrollEnabled={!props.disableScroll}
       keyExtractor={(item) => item.id.toString()}
       contentContainerStyle={styles.sectionListStyle}
       renderItem={({ item: order }) => (
-        <PendingOrderTicket order={order} onOrderPress={props.onOrderPress} />
+        <NewOrderTicket order={order} onOrderPress={props.onOrderPress} />
       )}
       renderSectionHeader={({ section: { title } }) =>
         title ? (
@@ -49,13 +44,13 @@ const PendingOrders = (props: PendingOrdersProps) => {
       }
       renderSectionFooter={() => <View style={styles.separator} />}
       ListEmptyComponent={() => (
-        <Text style={styles.noResultsTextStyle}>אין הזמנות לביצוע</Text>
+        <Text style={styles.noResultsTextStyle}>אין הזמנות חדשות</Text>
       )}
     />
   );
 };
 
-export default PendingOrders;
+export default NewOrders;
 
 const styles = StyleSheet.create({
   paymentMethodImageContainer: {

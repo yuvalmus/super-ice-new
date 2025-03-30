@@ -32,10 +32,10 @@ const DraggableList = (props: DraggableListProps) => {
     <GestureHandlerRootView style={styles.container}>
       <DraggableFlatList
         data={props.data}
+        scrollEnabled={false}
         keyExtractor={(item) => item.id.toString()}
         onDragEnd={props.onDragEnd}
         renderItem={renderItem}
-        containerStyle={styles.listContainer}
         dragItemOverflow={true}
         activationDistance={10}
         dragHitSlop={{ top: 20, bottom: 20, left: 50, right: 50 }}
@@ -50,13 +50,8 @@ const DraggableList = (props: DraggableListProps) => {
 
 const styles = StyleSheet.create({
   container: {
-    flex: 1,
     width: "100%",
-  },
-  listContainer: {
-    flex: 1,
-    width: "100%",
-    backgroundColor: "transparent",
+    height: "100%",
   },
 });
 

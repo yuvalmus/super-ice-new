@@ -6,12 +6,12 @@ import OrderTicket, {
 } from "../orderTicket/OrderTicket";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 
-interface PendingOrderTicketProps {
+interface NewOrderTicketProps {
   order: Order;
   onOrderPress?: (orderId: number) => void;
 }
 
-const PendingOrderTicket = (props: PendingOrderTicketProps) => {
+const NewOrderTicket = (props: NewOrderTicketProps) => {
   const currCustomer = customers.find(
     (customer) => customer.businessNumber === props.order.customerId
   );
@@ -29,15 +29,9 @@ const PendingOrderTicket = (props: PendingOrderTicketProps) => {
           title: "תאריך הזמנה:",
           data: props.order.creationDate,
         },
-        {
-          title: "קו חלוקה משויך:",
-          data: props.order.attachedDistributionLineId
-            ? getDistributionLineDate(props.order.attachedDistributionLineId)
-            : "לא משויך",
-        },
       ]}
     />
   );
 };
 
-export default PendingOrderTicket;
+export default NewOrderTicket;
