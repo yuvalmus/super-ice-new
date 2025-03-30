@@ -9,7 +9,6 @@ export interface Order {
   attachedDistributionLineId: number | null;
   position: number | null;
   creationDate: string;
-  suppliedDate: string | null;
   isPaid: boolean;
   totalPrice: number;
   deliveryDocument?: DeliveryDoc;

@@ -63,7 +63,7 @@ const OrderTicket = (props: OrderTicketProps) => {
       ((props.title ? 0.05 : 0) +
         (props.regularDetails ? props.regularDetails.length : 0) * 0.04 +
         (props.importantDetails ? props.importantDetails.length : 0) * 0.04 +
-        (props.otherDetails ? props.otherDetails.length : 0) * 0.055)
+        (props.otherDetails ? props.otherDetails.length : 0) * 0.052)
     );
   };
 
