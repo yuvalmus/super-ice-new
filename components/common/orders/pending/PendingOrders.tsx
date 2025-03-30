@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import React from "react";
 import { Order } from "@/models/Order";
-import { distributionLines } from "@/mock/distributionLines";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import PendingOrderTicket from "./PendingOrderTicket";
+import { getOrderStatus } from "@/utils/Order/OrderUtils";
 
 interface PendingOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
@@ -22,11 +22,7 @@ const PendingOrders = (props: PendingOrdersProps) => {
     .map((section) => ({
       ...section,
       data: section.data.filter(
-        (order) =>
-          order.attachedDistributionLineId !== null &&
-          !distributionLines.find(
-            (line) => line.id === order.attachedDistributionLineId
-          )?.isCompleted
+        (order) => getOrderStatus(order as Order) === "pending"
       ),
     }))
     .filter((section) => section.data.length > 0);

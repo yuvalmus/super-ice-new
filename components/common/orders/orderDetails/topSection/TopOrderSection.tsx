@@ -1,6 +1,6 @@
 import { Image, StyleSheet, Text, View } from "react-native";
 import React from "react";
-import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
+import { ScreenWidth } from "@/constants/Dimensions";
 import { useOrder } from "@/app/(tabs)/orders/_layout";
 import OrderStatus from "./OrderStatus";
 import MainInfo from "../mainInfo/MainInfo";

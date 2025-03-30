@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import React from "react";
 import { Order } from "@/models/Order";
-import { distributionLines } from "@/mock/distributionLines";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import CompletedOrderTicket from "./CompletedOrderTicket";
+import { getOrderStatus } from "@/utils/Order/OrderUtils";
 
 interface CompletedOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
@@ -21,10 +21,7 @@ const CompletedOrders = (props: CompletedOrdersProps) => {
     .map((section) => ({
       ...section,
       data: section.data.filter(
-        (order) =>
-          distributionLines.find(
-            (line) => line.id === order.attachedDistributionLineId
-          )?.isCompleted && order.isPaid
+        (order) => getOrderStatus(order as Order) === "completed"
       ),
     }))
     .filter((section) => section.data.length > 0);

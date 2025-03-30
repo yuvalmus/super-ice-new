@@ -9,7 +9,7 @@ import React from "react";
 import { Order } from "@/models/Order";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import NewOrderTicket from "./NewOrderTicket";
-
+import { getOrderStatus } from "@/utils/Order/OrderUtils";
 interface NewOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
   disableScroll?: boolean;
@@ -21,7 +21,7 @@ const NewOrders = (props: NewOrdersProps) => {
     .map((section) => ({
       ...section,
       data: section.data.filter(
-        (order) => order.attachedDistributionLineId === null
+        (order) => getOrderStatus(order as Order) === "newOrder"
       ),
     }))
     .filter((section) => section.data.length > 0);
