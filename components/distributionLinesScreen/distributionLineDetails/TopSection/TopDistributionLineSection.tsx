@@ -3,9 +3,12 @@ import React, { useEffect } from "react";
 import { Ionicons } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { router, useLocalSearchParams } from "expo-router";
+import { useAlert } from "@/contexts/AlertContext";
 
 const TopDistributionLineSection = () => {
   const { fromOrder, orderId } = useLocalSearchParams();
+  const { showAlert } = useAlert();
+
   const handleBack = () => {
     if (fromOrder === "true" && orderId) {
       router.replace("/(tabs)/distributionLines");
@@ -30,6 +33,29 @@ const TopDistributionLineSection = () => {
     return () => backHandler.remove();
   }, [fromOrder, orderId]);
 
+  const handleAddOrders = () => {
+    showAlert(
+      "הוספת הזמנות לקו חלוקה",
+      "האם ברצונך ליצור הזמנה חדשה או להוסיף הזמנות קיימות?",
+      [
+        {
+          text: "יצירת הזמנה חדשה",
+          style: "cancel",
+          onPress: () => {
+            console.log("יצירת הזמנה חדשה");
+          },
+        },
+        {
+          text: "הוספת הזמנות קיימות",
+          style: "default",
+          onPress: () => {
+            console.log("הוספת הזמנות קיימות");
+          },
+        },
+      ]
+    );
+  };
+
   return (
     <View
       style={{
@@ -41,6 +67,7 @@ const TopDistributionLineSection = () => {
       <TouchableOpacity onPress={handleBack}>
         <MaterialCommunityIcons name="arrow-right" size={28} color="#001B61" />
       </TouchableOpacity>
+
       <View style={styles.leftSideButtonsContainer}>
         <TouchableOpacity
           style={{ alignSelf: "flex-start" }}
@@ -48,12 +75,14 @@ const TopDistributionLineSection = () => {
         >
           <Ionicons name="checkmark-circle" size={28} color="#001B61" />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={{ alignSelf: "flex-start" }}
-          onPress={() => {}}
+          onPress={() => handleAddOrders()}
         >
           <Ionicons name="add" size={28} color="#001B61" />
         </TouchableOpacity>
+
         <TouchableOpacity
           style={{ alignSelf: "flex-start" }}
           onPress={() => {}}

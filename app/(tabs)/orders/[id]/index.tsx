@@ -26,7 +26,7 @@ const addToDistributionLineIcon = require("@/assets/images/addToDistributionLine
 const OrderDetailsScreen = () => {
   const { orderDetails, setOrderDetails } = useOrder();
   const { id, fromCustomer, customerId } = useLocalSearchParams();
-  const { show } = useAlert();
+  const { showAlert } = useAlert();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleBack = () => {
@@ -63,15 +63,6 @@ const OrderDetailsScreen = () => {
     );
   };
 
-  // Helper to show a modal with given title, message, and buttons
-  const showModal = (
-    title: string,
-    message: string,
-    buttons: AlertButton[]
-  ) => {
-    show({ title, message, buttons });
-  };
-
   // TODO: refactor this function
   const handleAddToDistributionLine = () => {
     const hasDistributionLine =
@@ -81,7 +72,7 @@ const OrderDetailsScreen = () => {
     if (!hasDistributionLine) {
       // Order has no distribution line attached
       if (isActiveLineAvailable) {
-        showModal(
+        showAlert(
           "הכנסת ההזמנה לקו חלוקה",
           "האם להכניס את ההזמנה לקו החלוקה הנוכחי או לקו חלוקה אחר?",
           [
@@ -107,7 +98,7 @@ const OrderDetailsScreen = () => {
         "הזמנה זו כבר משויכת לקו חלוקה. האם אתה רוצה לשייך את ההזמנה לקו חלוקה אחר?";
 
       if (isActiveLineAvailable) {
-        showModal(title, message, [
+        showAlert(title, message, [
           {
             text: "קו חלוקה אחר",
             onPress: () => setIsModalVisible(true),
@@ -125,7 +116,7 @@ const OrderDetailsScreen = () => {
           },
         ]);
       } else {
-        showModal(title, message, [
+        showAlert(title, message, [
           {
             text: "קו חלוקה אחר",
             onPress: () => setIsModalVisible(true),
