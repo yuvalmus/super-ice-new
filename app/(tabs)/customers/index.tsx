@@ -70,6 +70,7 @@ const styles = StyleSheet.create({
     width: "100%",
     alignItems: "center",
     padding: ScreenWidth * 0.04,
+    paddingBottom: ScreenHeight * 0.15,
   },
   distributionAreaTitleStyle: {
     fontSize: ScreenWidth * 0.06,

@@ -70,7 +70,6 @@ const styles = StyleSheet.create({
     textAlign: "right",
   },
   screenScrollViewStyle: {
-    paddingBottom: ScreenHeight * 0.01,
-    flex: 1,
+    paddingBottom: ScreenHeight * 0.02,
   },
 });

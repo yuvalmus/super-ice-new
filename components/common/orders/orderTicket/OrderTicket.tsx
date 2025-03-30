@@ -1,8 +1,16 @@
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import { distributionLines } from "@/mock/distributionLines";
 import { Order } from "@/models/Order";
+import { useRouter } from "expo-router";
 import React, { ReactNode } from "react";
-import { View, StyleSheet, Text } from "react-native";
+import {
+  View,
+  StyleSheet,
+  Text,
+  StyleProp,
+  ViewStyle,
+  TouchableOpacity,
+} from "react-native";
 import Svg, { Path } from "react-native-svg";
 
 const generateTornEdgePath = (
@@ -40,24 +48,39 @@ interface OrderTicketProps {
   regularDetails?: OrderTicketDetail[];
   importantDetails?: OrderTicketDetail[];
   otherDetails?: OrderTicketDetail[];
+  style?: StyleProp<ViewStyle>;
+  onOrderPress?: (orderId: number) => void;
 }
 
 const OrderTicket = (props: OrderTicketProps) => {
   const MIN_HEIGHT = ScreenHeight * 0.03;
   const NUM_OF_RIPS = 15;
+  const router = useRouter();
+
   const calculateTicketHeight = () => {
     return (
       ScreenHeight *
       ((props.title ? 0.05 : 0) +
         (props.regularDetails ? props.regularDetails.length : 0) * 0.04 +
         (props.importantDetails ? props.importantDetails.length : 0) * 0.04 +
-        (props.otherDetails ? props.otherDetails.length : 0) * 0.055)
+        (props.otherDetails ? props.otherDetails.length : 0) * 0.052)
     );
   };
 
   const height = MIN_HEIGHT + calculateTicketHeight();
   return (
-    <View style={[styles.container, { width: props.width, height: height }]}>
+    <TouchableOpacity
+      onPress={() =>
+        props.onOrderPress
+          ? props.onOrderPress(props.order.id)
+          : router.push(`/orders/${props.order.id}`)
+      }
+      style={[
+        styles.container,
+        { width: props.width, height: height },
+        props.style,
+      ]}
+    >
       <Svg
         width={props.width}
         height={height}
@@ -71,7 +94,15 @@ const OrderTicket = (props: OrderTicketProps) => {
         />
       </Svg>
       <View style={styles.content}>
-        {props.title && <Text style={styles.headerText}>{props.title}</Text>}
+        {props.title && (
+          <Text
+            style={styles.headerText}
+            numberOfLines={1}
+            lineBreakMode="tail"
+          >
+            {props.title}
+          </Text>
+        )}
         {props.regularDetails?.map((detail, index) => (
           <View key={index} style={styles.line}>
             <Text style={styles.regularText}>{detail.title}</Text>
@@ -99,7 +130,7 @@ const OrderTicket = (props: OrderTicketProps) => {
           </View>
         ))}
       </View>
-    </View>
+    </TouchableOpacity>
   );
 };
 
@@ -125,7 +156,7 @@ const styles = StyleSheet.create({
   headerText: {
     color: "#FFFBF3",
     textAlign: "center",
-    fontSize: ScreenWidth * 0.05,
+    fontSize: ScreenWidth * 0.04,
     fontWeight: "bold",
     marginBottom: ScreenHeight * 0.015,
   },

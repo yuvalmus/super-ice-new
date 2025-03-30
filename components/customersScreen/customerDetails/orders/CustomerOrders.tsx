@@ -1,28 +1,83 @@
 import { StyleSheet, Text } from "react-native";
-import React, { useState } from "react";
+import React, { ReactElement, useMemo, useState } from "react";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
 import { useCustomer } from "@/app/(tabs)/customers/_layout";
 import { orders } from "@/mock/orders";
-import PendingOrders from "./PendingOrders";
-import CompletedOrders from "./CompletedNotPaidOrders";
+import NewOrders from "@/components/common/orders/new/NewOrders";
+import PendingOrders from "@/components/common/orders/pending/PendingOrders";
+import CompletedNotPaidOrders from "@/components/common/orders/completedNotPaid/CompletedNotPaidOrders";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
+import { useRouter } from "expo-router";
 
-type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו";
+type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו" | "חדשות";
 
 const SegmentIndices: Record<OrdersStatusOptions, number> = {
   "בוצעו ולא שולמו": 0,
   לביצוע: 1,
+  חדשות: 2,
 } as const;
 
 type SegmentType = keyof typeof SegmentIndices;
 
 const CustomerOrders = () => {
+  const router = useRouter();
   const [selectedIndex, setSelectedIndex] = useState<number>(
-    SegmentIndices["לביצוע"]
+    SegmentIndices["חדשות"]
   );
   const { customerDetails } = useCustomer();
-  const customerOrders = orders.filter(
-    (order) => order.customerId === customerDetails?.businessNumber
+  const customerOrders = useMemo(
+    () =>
+      orders.filter(
+        (order) => order.customerId === customerDetails?.businessNumber
+      ),
+    [orders, customerDetails]
+  );
+
+  const handleOrderPress = (orderId: number) => {
+    if (customerDetails?.businessNumber) {
+      router.push({
+        pathname: "/(tabs)/orders/[id]",
+        params: {
+          id: orderId,
+          fromCustomer: "true",
+          customerId: customerDetails?.businessNumber,
+        },
+      });
+    }
+  };
+
+  const sectionedCustomerOrders = useMemo(() => {
+    return {
+      title: "",
+      data: customerOrders,
+    };
+  }, [customerOrders]);
+
+  const screenRenderIndexMap: Record<number, ReactElement> = useMemo(
+    () => ({
+      0: (
+        <CompletedNotPaidOrders
+          sectionedOrdersList={[sectionedCustomerOrders]}
+          disableScroll={true}
+          onOrderPress={handleOrderPress}
+        />
+      ),
+      1: (
+        <PendingOrders
+          sectionedOrdersList={[sectionedCustomerOrders]}
+          disableScroll={true}
+          onOrderPress={handleOrderPress}
+        />
+      ),
+      2: (
+        <NewOrders
+          sectionedOrdersList={[sectionedCustomerOrders]}
+          disableScroll={true}
+          onOrderPress={handleOrderPress}
+        />
+      ),
+    }),
+    [orders, sectionedCustomerOrders]
   );
 
   return (
@@ -33,18 +88,14 @@ const CustomerOrders = () => {
         selectedIndex={selectedIndex}
         style={{
           marginTop: ScreenHeight * 0.02,
-          width: "80%",
+          width: "90%",
           alignSelf: "center",
         }}
         onChange={(event) => {
           setSelectedIndex(event.nativeEvent.selectedSegmentIndex);
         }}
       />
-      {selectedIndex === SegmentIndices["לביצוע"] ? (
-        <PendingOrders customerOrders={customerOrders} />
-      ) : (
-        <CompletedOrders customerOrders={customerOrders} />
-      )}
+      {screenRenderIndexMap[selectedIndex]}
     </>
   );
 };

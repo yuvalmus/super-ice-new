@@ -21,7 +21,6 @@ const ActiveDistributionLineStats = () => {
     <>
       {activeDistributionLine ? (
         <View>
-          <Text style={styles.activeLineTitle}>קו חלוקה פעיל:</Text>
           <DistributionStats statsBoxStyle={styles.statsBox} />
         </View>
       ) : (

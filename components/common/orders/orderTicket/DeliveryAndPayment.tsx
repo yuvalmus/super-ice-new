@@ -12,6 +12,12 @@ export const DeliveryDocColor: Record<DeliveryDoc, ColorValue> = {
   deliveryNote: "yellow",
 };
 
+export const DeliveryDocumentToHebrew: Record<DeliveryDoc, string> = {
+  invoice: "חשבונית",
+  receipt: "קבלה",
+  deliveryNote: "תעודת משלוח",
+};
+
 const paymentMethodImageStyle: StyleProp<ImageStyle> = {
   height: "100%",
   aspectRatio: 1,
