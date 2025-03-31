@@ -88,7 +88,7 @@ const styles = StyleSheet.create({
     marginTop: ScreenHeight * 0.01,
   },
   infoRow: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginVertical: 4,

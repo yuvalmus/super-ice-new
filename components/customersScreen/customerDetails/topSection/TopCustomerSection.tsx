@@ -60,20 +60,20 @@ const styles = StyleSheet.create({
   topSection: {
     width: "100%",
     height: ScreenHeight * 0.17,
-    flexDirection: 'row-reverse',
-    justifyContent: 'space-evenly',
-    alignItems: 'flex-end',
+    flexDirection: "row",
+    justifyContent: "space-evenly",
+    alignItems: "flex-end",
     padding: "3%",
     backgroundColor: "#8FCCE3",
   },
   userAvatarContainer: {
-    height: '100%',
+    height: "100%",
     flex: 3,
-    justifyContent: 'center',
-    alignItems: 'center'
+    justifyContent: "center",
+    alignItems: "center",
   },
   userAvatarIconStyle: {
     height: "75%",
-    aspectRatio: 1
+    aspectRatio: 1,
   },
 });

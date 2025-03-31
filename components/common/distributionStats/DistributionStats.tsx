@@ -75,14 +75,14 @@ export const DistributionStats = (props: DistributionStatsProps) => {
   return (
     <View style={[styles.statsContainer, props.statsBoxStyle]}>
       <TouchableOpacity onPress={toggleExpansion} style={styles.header}>
-        <Text style={styles.statsTitle}>
-          {props.customTitle ? props.customTitle : getTodaysDistributionTitle()}
-        </Text>
         <Animated.View
           style={{ transform: [{ rotate: arrowRotationInterpolation }] }}
         >
           <Ionicons name="caret-down" size={18} color="#001B61" />
         </Animated.View>
+        <Text style={styles.statsTitle}>
+          {props.customTitle ? props.customTitle : getTodaysDistributionTitle()}
+        </Text>
       </TouchableOpacity>
       <TouchableOpacity onPress={() => router.navigate("/distributionLines")}>
         <Animated.View
@@ -128,7 +128,6 @@ const styles = StyleSheet.create({
   },
   header: {
     flexDirection: "row",
-    justifyContent: "flex-end",
     alignItems: "center",
     width: "100%",
     paddingHorizontal: 20,
@@ -137,7 +136,7 @@ const styles = StyleSheet.create({
     fontSize: ScreenWidth * 0.048,
     fontWeight: "bold",
     color: "#001B61",
-    marginRight: "2%",
+    paddingRight: "2%",
   },
   progressesContainer: {
     overflow: "hidden",

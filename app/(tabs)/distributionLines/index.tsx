@@ -20,8 +20,8 @@ import { useRouter } from "expo-router";
 
 type DistributionLineFilter = "הקווים שלי" | "קווים אחרים";
 const SegmentIndices: Record<DistributionLineFilter, number> = {
-  "קווים אחרים": 0,
-  "הקווים שלי": 1,
+  "הקווים שלי": 0,
+  "קווים אחרים": 1,
 } as const;
 type SegmentType = keyof typeof SegmentIndices;
 
@@ -52,10 +52,7 @@ export default function DistributionLineScreen() {
     <ScreenWrapper
       title="רשימת קווי חלוקה"
       topButton={
-        <TouchableOpacity
-          style={{ alignSelf: "flex-start" }}
-          onPress={() => {}}
-        >
+        <TouchableOpacity onPress={() => {}}>
           <Ionicons name="add" size={28} color="#001B61" />
         </TouchableOpacity>
       }

@@ -145,7 +145,7 @@ const styles = StyleSheet.create({
     fontSize: ScreenWidth * 0.037,
   },
   line: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     width: "100%",

@@ -40,7 +40,7 @@ export default OrderStatus;
 
 const styles = StyleSheet.create({
   container: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "center",
   },
@@ -50,7 +50,7 @@ const styles = StyleSheet.create({
     fontSize: ScreenWidth * 0.04,
   },
   statusContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
     gap: ScreenWidth * 0.02,
   },

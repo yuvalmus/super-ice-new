@@ -81,12 +81,12 @@ const styles = StyleSheet.create({
     borderColor: "#e0e0e0",
   },
   infoRow: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
   },
   infoItem: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
     marginVertical: ScreenHeight * 0.005,
   },
@@ -97,7 +97,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: ScreenWidth * 0.02,
+    marginRight: ScreenWidth * 0.02,
   },
   infoLabel: {
     fontSize: ScreenWidth * 0.038,
@@ -107,7 +107,7 @@ const styles = StyleSheet.create({
   },
   infoValue: {
     fontSize: ScreenWidth * 0.044,
-    marginRight: ScreenWidth * 0.01,
+    marginLeft: ScreenWidth * 0.01,
     color: "#333",
     fontWeight: "bold",
   },

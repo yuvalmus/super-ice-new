@@ -109,7 +109,7 @@ const styles = StyleSheet.create({
     marginTop: ScreenHeight * 0.01,
   },
   headerRow: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
   },
   iconContainer: {
@@ -119,7 +119,7 @@ const styles = StyleSheet.create({
     borderRadius: 15,
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: ScreenWidth * 0.02,
+    marginRight: ScreenWidth * 0.02,
   },
   titleText: {
     fontSize: ScreenWidth * 0.038,
@@ -127,7 +127,7 @@ const styles = StyleSheet.create({
     fontWeight: "bold",
   },
   areasContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     flexWrap: "wrap",
     marginTop: ScreenHeight * 0.01,
     paddingHorizontal: ScreenWidth * 0.02,
@@ -141,7 +141,7 @@ const styles = StyleSheet.create({
     borderColor: "#b3e0ff",
   },
   areaChipWithMargin: {
-    marginLeft: ScreenWidth * 0.02,
+    marginRight: ScreenWidth * 0.02,
   },
   areaChipText: {
     color: "#21a7fd",

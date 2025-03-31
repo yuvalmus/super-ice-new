@@ -78,7 +78,7 @@ const ActionButton = (props: ActionButtonProps) => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     alignItems: "center",
     justifyContent: "space-around",
   },

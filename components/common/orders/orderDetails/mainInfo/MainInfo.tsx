@@ -90,8 +90,8 @@ const MainInfo = () => {
             </Text>
           </View>
 
-          <View style={styles.distributionLineContainer}>
-            <Text style={styles.distributionLineTitle}>קו חלוקה משויך:</Text>
+          <View style={styles.detailRow}>
+            <Text style={styles.detailTitle}>קו חלוקה משויך:</Text>
             {orderDetails?.attachedDistributionLineId ? (
               <TouchableOpacity onPress={handleDistributionLinePress}>
                 <Text style={styles.distributionLineValue}>
@@ -135,7 +135,7 @@ export default MainInfo;
 
 const styles = StyleSheet.create({
   mainInfoContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     marginTop: ScreenHeight * 0.01,
     paddingBottom: ScreenHeight * 0.02,
@@ -166,7 +166,7 @@ const styles = StyleSheet.create({
     marginTop: ScreenHeight * 0.02,
   },
   detailRow: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     alignItems: "center",
     marginBottom: ScreenHeight * 0.01,
@@ -176,15 +176,6 @@ const styles = StyleSheet.create({
     fontSize: ScreenWidth * 0.04,
   },
   detailValue: {
-    color: "#001B61",
-    fontSize: ScreenWidth * 0.04,
-  },
-  distributionLineContainer: {
-    flexDirection: "row-reverse",
-    justifyContent: "space-between",
-    alignItems: "center",
-  },
-  distributionLineTitle: {
     color: "#001B61",
     fontSize: ScreenWidth * 0.04,
   },

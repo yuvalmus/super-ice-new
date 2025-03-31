@@ -51,7 +51,7 @@ export default CustomerCard;
 
 const styles = StyleSheet.create({
   outerContainer: {
-    width: '100%',
+    width: "100%",
     height: ScreenHeight * 0.07,
     marginBottom: "5%",
     borderRadius: 10,
@@ -66,8 +66,8 @@ const styles = StyleSheet.create({
     elevation: 7,
   },
   innerContainer: {
-    width: '100%',
-    flexDirection: "row-reverse",
+    width: "100%",
+    flexDirection: "row",
     flex: 1,
     paddingHorizontal: "2%",
     alignItems: "center",
@@ -79,16 +79,15 @@ const styles = StyleSheet.create({
     height: "100%",
     flexDirection: "column",
     justifyContent: "center",
-    marginRight: "3%",
+    alignItems: "flex-start",
+    marginLeft: "3%",
   },
   bussinessNameStyle: {
     fontSize: ScreenWidth * 0.045,
     color: "#001B61",
-    textAlign: "right",
   },
   distributionAreaTextStyle: {
     fontSize: ScreenWidth * 0.035,
     color: "#21a7fd",
-    textAlign: "right",
   },
 });

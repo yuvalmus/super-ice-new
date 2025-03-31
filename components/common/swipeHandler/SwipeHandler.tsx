@@ -119,7 +119,7 @@ export default SwipeHandler;
 const styles = StyleSheet.create({
   swipeCheckmarkContainer: {
     position: "absolute",
-    left: -ScreenWidth * 0.15,
+    right: -ScreenWidth * 0.15,
     height: "100%",
     justifyContent: "center",
     alignItems: "center",

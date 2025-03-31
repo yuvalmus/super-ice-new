@@ -104,7 +104,11 @@ const OrderItem = (props: OrderItemProps) => {
           </TouchableOpacity>
 
           <View style={styles.distributionPointNameSection}>
-            <Text style={styles.distributionPointNameStyle} numberOfLines={1} lineBreakMode="tail">
+            <Text
+              style={styles.distributionPointNameStyle}
+              numberOfLines={1}
+              lineBreakMode="tail"
+            >
               {getCustomerName()}
             </Text>
           </View>
@@ -164,7 +168,7 @@ const styles = StyleSheet.create({
   },
   mainContent: {
     height: ScreenHeight * 0.07,
-    flexDirection: "row-reverse",
+    flexDirection: "row",
   },
   draggableSection: {
     flex: 1.5,
@@ -178,17 +182,16 @@ const styles = StyleSheet.create({
   distributionPointNameSection: {
     flex: 5.5,
     justifyContent: "center",
-    alignItems: "flex-end",
   },
   distributionPointNameStyle: {
     fontSize: ScreenWidth * 0.05,
   },
   amountSection: {
     flex: 2.5,
-    flexDirection: "row",
+    flexDirection: "row-reverse",
     justifyContent: "center",
     alignItems: "center",
-    paddingLeft: "3%",
+    paddingRight: "3%",
   },
   amountInputStyle: {
     fontSize: ScreenWidth * 0.05,
@@ -210,7 +213,7 @@ const styles = StyleSheet.create({
     fontSize: ScreenWidth * 0.05,
     flex: 1,
     color: "#21a7fd",
-    marginLeft: "5%",
+    marginRight: "5%",
     textAlign: "center",
   },
   actionsContainer: {

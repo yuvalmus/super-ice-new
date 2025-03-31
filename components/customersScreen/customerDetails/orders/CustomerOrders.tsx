@@ -12,9 +12,9 @@ import { useRouter } from "expo-router";
 type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו" | "חדשות";
 
 const SegmentIndices: Record<OrdersStatusOptions, number> = {
-  "בוצעו ולא שולמו": 0,
+  חדשות: 0,
   לביצוע: 1,
-  חדשות: 2,
+  "בוצעו ולא שולמו": 2,
 } as const;
 
 type SegmentType = keyof typeof SegmentIndices;
@@ -56,7 +56,7 @@ const CustomerOrders = () => {
   const screenRenderIndexMap: Record<number, ReactElement> = useMemo(
     () => ({
       0: (
-        <CompletedNotPaidOrders
+        <NewOrders
           sectionedOrdersList={[sectionedCustomerOrders]}
           disableScroll={true}
           onOrderPress={handleOrderPress}
@@ -70,7 +70,7 @@ const CustomerOrders = () => {
         />
       ),
       2: (
-        <NewOrders
+        <CompletedNotPaidOrders
           sectionedOrdersList={[sectionedCustomerOrders]}
           disableScroll={true}
           onOrderPress={handleOrderPress}
@@ -106,9 +106,8 @@ const styles = StyleSheet.create({
   titleTextStyle: {
     color: "#001B61",
     fontSize: ScreenWidth * 0.06,
-    marginRight: ScreenWidth * 0.04,
+    marginLeft: ScreenWidth * 0.04,
     marginTop: ScreenHeight * 0.02,
     fontWeight: "bold",
-    textAlign: "right",
   },
 });

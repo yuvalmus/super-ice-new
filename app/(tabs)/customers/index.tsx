@@ -36,10 +36,7 @@ export default function CustomersScreen() {
     <ScreenWrapper
       title="רשימת לקוחות"
       topButton={
-        <TouchableOpacity
-          style={{ alignSelf: "flex-start" }}
-          onPress={() => {}}
-        >
+        <TouchableOpacity onPress={() => {}}>
           <Ionicons name="add" size={28} color="#001B61" />
         </TouchableOpacity>
       }

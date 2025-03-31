@@ -26,14 +26,16 @@ const DriversCardsSection = () => {
       >
         <DriverCard
           driver={currentDriver as Driver}
-          style={{ marginLeft: ScreenWidth * 0.04 }}
+          style={{ marginRight: ScreenWidth * 0.04 }}
         />
         {otherDrivers.map((driver: Driver, index) => (
           <DriverCard
             key={index}
             driver={driver}
             style={
-              index !== otherDrivers.length - 1 && { marginLeft: ScreenWidth * 0.04 }
+              index !== otherDrivers.length - 1 && {
+                marginRight: ScreenWidth * 0.04,
+              }
             }
           />
         ))}
@@ -53,10 +55,9 @@ const styles = StyleSheet.create({
     fontSize: ScreenWidth * 0.06,
     fontWeight: "bold",
     color: "#001B61",
-    textAlign: "right",
   },
   scrollViewStyle: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     paddingVertical: 10,
   },

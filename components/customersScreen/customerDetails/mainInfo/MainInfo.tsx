@@ -1,4 +1,4 @@
-import {  StyleSheet, Text, View } from "react-native";
+import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import { useCustomer } from "@/app/(tabs)/customers/_layout";
@@ -6,7 +6,7 @@ import { distributionAreas } from "@/mock/distributionAreas";
 
 const MainInfo = () => {
   const { customerDetails } = useCustomer();
-  
+
   const distributionArea = distributionAreas.find(
     (area) => area.id === customerDetails?.distributionAreaId
   );
@@ -34,7 +34,7 @@ export default MainInfo;
 
 const styles = StyleSheet.create({
   mainInfoContainer: {
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-between",
     backgroundColor: "#8FCCE3",
   },

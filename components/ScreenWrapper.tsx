@@ -65,9 +65,8 @@ const styles = StyleSheet.create({
   titleTextStyle: {
     color: "#001B61",
     fontSize: ScreenWidth * 0.08,
-    marginRight: ScreenWidth * 0.04,
+    marginLeft: ScreenWidth * 0.04,
     fontWeight: "bold",
-    textAlign: "right",
   },
   screenScrollViewStyle: {
     paddingBottom: ScreenHeight * 0.02,

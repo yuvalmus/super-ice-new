@@ -73,7 +73,7 @@ const TopDistributionLineSection = () => {
   return (
     <View
       style={{
-        flexDirection: "row-reverse",
+        flexDirection: "row",
         justifyContent: "space-between",
         width: "100%",
       }}
@@ -84,29 +84,20 @@ const TopDistributionLineSection = () => {
 
       {!isDistributionLineCompleted && (
         <View style={styles.leftSideButtonsContainer}>
-          <TouchableOpacity
-            style={{ alignSelf: "flex-start" }}
-            onPress={() => {}}
-          >
-            <Ionicons name="checkmark-circle" size={28} color="#001B61" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{ alignSelf: "flex-start" }}
-            onPress={() => handleAddOrders()}
-          >
-            <Ionicons name="add" size={28} color="#001B61" />
-          </TouchableOpacity>
-
-          <TouchableOpacity
-            style={{ alignSelf: "flex-start" }}
-            onPress={() => {}}
-          >
+          <TouchableOpacity onPress={() => {}}>
             <MaterialCommunityIcons
               name="map-marker-distance"
               size={28}
               color="#001B61"
             />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => handleAddOrders()}>
+            <Ionicons name="add" size={28} color="#001B61" />
+          </TouchableOpacity>
+
+          <TouchableOpacity onPress={() => {}}>
+            <Ionicons name="checkmark-circle" size={28} color="#001B61" />
           </TouchableOpacity>
         </View>
       )}

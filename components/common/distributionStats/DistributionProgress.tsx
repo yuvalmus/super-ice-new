@@ -38,6 +38,7 @@ const DistributionProgress = (props: DistributionProgressProps) => {
 
   return (
     <View style={styles.progressContainer}>
+      <Image source={props.statImageSrc} style={styles.imageStyle} />
       <View style={styles.progressBarContainer}>
         <View
           style={[
@@ -69,8 +70,8 @@ const DistributionProgress = (props: DistributionProgressProps) => {
         style={[
           styles.progressBarText,
           {
-            left: ScreenWidth * 0.21,
-            marginLeft: getAmountProvidedMargin(),
+            right: ScreenWidth * 0.21,
+            marginRight: getAmountProvidedMargin(),
           },
         ]}
       >
@@ -81,7 +82,7 @@ const DistributionProgress = (props: DistributionProgressProps) => {
         style={[
           styles.progressBarText,
           {
-            left: ScreenWidth * 0.32,
+            right: ScreenWidth * 0.32,
           },
         ]}
       >
@@ -92,13 +93,12 @@ const DistributionProgress = (props: DistributionProgressProps) => {
         style={[
           styles.progressBarText,
           {
-            left: ScreenWidth * 0.35,
+            right: ScreenWidth * 0.35,
           },
         ]}
       >
         {props.capacity}
       </Text>
-      <Image source={props.statImageSrc} style={styles.imageStyle} />
     </View>
   );
 };

@@ -82,7 +82,7 @@ const styles = StyleSheet.create({
     borderBottomRightRadius: 15,
     borderBottomLeftRadius: 15,
     backgroundColor: "#3AA1D8",
-    flexDirection: "row-reverse",
+    flexDirection: "row",
     justifyContent: "space-evenly",
     alignItems: "center",
   },

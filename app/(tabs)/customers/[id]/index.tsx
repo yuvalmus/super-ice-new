@@ -66,7 +66,7 @@ export default function CustomerScreen() {
       topButton={
         <View
           style={{
-            flexDirection: "row-reverse",
+            flexDirection: "row",
             justifyContent: "space-between",
             width: "100%",
           }}

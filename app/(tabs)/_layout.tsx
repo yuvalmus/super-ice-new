@@ -19,24 +19,12 @@ export default function TabLayout() {
       }}
     >
       <Tabs.Screen
-        name="customers"
+        name="index"
         options={{
-          title: "לקוחות",
+          title: "בית",
           tabBarIcon: ({ color, focused }) => (
             <IoniconsTabBarIcon
-              name={focused ? "people" : "people-outline"}
-              color={color}
-            />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="orders"
-        options={{
-          title: "הזמנות",
-          tabBarIcon: ({ color, focused }) => (
-            <IoniconsTabBarIcon
-              name={focused ? "receipt" : "receipt-outline"}
+              name={focused ? "home" : "home-outline"}
               color={color}
             />
           ),
@@ -55,12 +43,24 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="index"
+        name="orders"
         options={{
-          title: "בית",
+          title: "הזמנות",
           tabBarIcon: ({ color, focused }) => (
             <IoniconsTabBarIcon
-              name={focused ? "home" : "home-outline"}
+              name={focused ? "receipt" : "receipt-outline"}
+              color={color}
+            />
+          ),
+        }}
+      />
+      <Tabs.Screen
+        name="customers"
+        options={{
+          title: "לקוחות",
+          tabBarIcon: ({ color, focused }) => (
+            <IoniconsTabBarIcon
+              name={focused ? "people" : "people-outline"}
               color={color}
             />
           ),

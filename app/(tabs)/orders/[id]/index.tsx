@@ -178,7 +178,7 @@ const OrderDetailsScreen = () => {
       topButton={
         <View
           style={{
-            flexDirection: "row-reverse",
+            flexDirection: "row",
             justifyContent: "space-between",
             width: "100%",
           }}
@@ -191,6 +191,14 @@ const OrderDetailsScreen = () => {
             />
           </TouchableOpacity>
           <View style={styles.leftSideButtonsContainer}>
+            {canChangeDistributionLine && (
+              <TouchableOpacity onPress={handleAddToDistributionLine}>
+                <Image
+                  source={addToDistributionLineIcon}
+                  style={styles.addToDistributionLineIcon}
+                />
+              </TouchableOpacity>
+            )}
             <TouchableOpacity
               onPress={() => router.push(`/customers/${id}/edit`)}
             >
@@ -200,14 +208,6 @@ const OrderDetailsScreen = () => {
                 color="#001B61"
               />
             </TouchableOpacity>
-            {canChangeDistributionLine && (
-              <TouchableOpacity onPress={handleAddToDistributionLine}>
-                <Image
-                  source={addToDistributionLineIcon}
-                  style={styles.addToDistributionLineIcon}
-                />
-              </TouchableOpacity>
-            )}
           </View>
         </View>
       }

@@ -12,9 +12,9 @@ import { customers } from "@/mock/customers";
 type OrdersStatusOptions = "לביצוע" | "בוצעו ולא שולמו" | "חדשות";
 
 const SegmentIndices: Record<OrdersStatusOptions, number> = {
-  "בוצעו ולא שולמו": 0,
+  חדשות: 0,
   לביצוע: 1,
-  חדשות: 2,
+  "בוצעו ולא שולמו": 2,
 } as const;
 
 type SegmentType = keyof typeof SegmentIndices;
@@ -48,9 +48,9 @@ export default function OrdersScreen() {
 
   const screenRenderIndexMap: Record<number, ReactElement> = useMemo(
     () => ({
-      0: <CompletedNotPaidOrders sectionedOrdersList={sectionedData} />,
+      0: <NewOrders sectionedOrdersList={sectionedData} />,
       1: <PendingOrders sectionedOrdersList={sectionedData} />,
-      2: <NewOrders sectionedOrdersList={sectionedData} />,
+      2: <CompletedNotPaidOrders sectionedOrdersList={sectionedData} />,
     }),
     [orders, sectionedData]
   );
