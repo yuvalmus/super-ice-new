@@ -37,6 +37,7 @@ const SelectOrdersModal = (props: SelectOrdersModalProps) => {
       startButtonText={props.startButtonText ?? "הוספת הזמנות לקו"}
       items={sortedOrders}
       noItemsText="אין הזמנות"
+      selectedBorderColor="#001B61"
       renderItem={(order: Order) => (
         <OrderTicket
           order={order}

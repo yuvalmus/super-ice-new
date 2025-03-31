@@ -23,6 +23,7 @@ interface SelectionModalProps {
   renderItem: (item: any) => React.ReactNode;
   multiple?: boolean;
   noItemsText: string;
+  selectedBorderColor?: string;
 }
 
 const SelectionModal = (props: SelectionModalProps) => {
@@ -63,7 +64,12 @@ const SelectionModal = (props: SelectionModalProps) => {
                     onPress={() => handleSelect(itemId)}
                     style={({ pressed }) => [
                       styles.cardWrapper,
-                      selectedItems.includes(itemId) && styles.selectedCard,
+                      selectedItems.includes(itemId) && [
+                        styles.selectedCard,
+                        {
+                          borderColor: props.selectedBorderColor || "#21a7fd",
+                        },
+                      ],
                       pressed && styles.pressed,
                     ]}
                   >
@@ -131,7 +137,6 @@ const styles = StyleSheet.create({
     marginTop: ScreenHeight * 0.02,
   },
   selectedCard: {
-    borderColor: "#21a7fd",
     borderWidth: 2.5,
     borderRadius: 30,
   },
