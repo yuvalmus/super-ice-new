@@ -7,9 +7,9 @@ import {
 } from "react-native";
 import React from "react";
 import { Order } from "@/models/Order";
-import { distributionLines } from "@/mock/distributionLines";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 import CompletedNotPaidOrderTicket from "./CompletedNotPaidOrderTicket";
+import { getOrderStatus } from "@/utils/Order/OrderUtils";
 
 interface CompletedNotPaidOrdersProps {
   sectionedOrdersList: SectionListData<Order>[];
@@ -22,10 +22,7 @@ const CompletedNotPaidOrders = (props: CompletedNotPaidOrdersProps) => {
     .map((section) => ({
       ...section,
       data: section.data.filter(
-        (order) =>
-          distributionLines.find(
-            (line) => line.id === order.attachedDistributionLineId
-          )?.isCompleted && !order.isPaid
+        (order) => getOrderStatus(order as Order) === "completedNotPaid"
       ),
     }))
     .filter((section) => section.data.length > 0);

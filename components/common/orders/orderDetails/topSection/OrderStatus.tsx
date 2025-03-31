@@ -1,63 +1,17 @@
-import {
-  ImageSourcePropType,
-  StyleSheet,
-  Text,
-  View,
-  Image,
-} from "react-native";
-import React, { useMemo } from "react";
+import { StyleSheet, Text, View, Image } from "react-native";
+import React from "react";
 import { useOrder } from "@/app/(tabs)/orders/_layout";
-import { distributionLines } from "@/mock/distributionLines";
 import { ScreenWidth } from "@/constants/Dimensions";
-
-const newOrder = require("@/assets/images/receivedOrder.png");
-const pending = require("@/assets/images/pending.png");
-const completedNotPaid = require("@/assets/images/completedNotPaid.png");
-const completed = require("@/assets/images/completed.png");
-
-type OrderStatus = "newOrder" | "pending" | "completedNotPaid" | "completed";
+import {
+  statusToIcon,
+  statusToColor,
+  statusToText,
+  getOrderStatus,
+} from "@/utils/Order/OrderUtils";
+import { Order } from "@/models/Order";
 
 const OrderStatus = () => {
   const { orderDetails } = useOrder();
-
-  const statusToText: Record<OrderStatus, string> = {
-    newOrder: "הזמנה חדשה",
-    pending: "ממתין לביצוע",
-    completedNotPaid: "בוצע ולא שולם",
-    completed: "בוצע ושולם",
-  };
-
-  const statusToColor: Record<OrderStatus, string> = {
-    newOrder: "#000",
-    pending: "#EA9C00",
-    completedNotPaid: "#ff0000",
-    completed: "#38d313",
-  };
-
-  const statusToIcon: Record<OrderStatus, ImageSourcePropType> = {
-    newOrder,
-    pending,
-    completedNotPaid,
-    completed,
-  };
-
-  // TODO: use this status also for the lists of orders
-  const getOrderStatus = useMemo((): (() => OrderStatus) => {
-    return () => {
-      if (orderDetails?.attachedDistributionLineId === null) return "newOrder";
-
-      if (
-        !distributionLines.find(
-          (line) => line.id === orderDetails?.attachedDistributionLineId
-        )?.isCompleted
-      )
-        return "pending";
-
-      if (!orderDetails?.isPaid) return "completedNotPaid";
-
-      return "completed";
-    };
-  }, [orderDetails]);
 
   return (
     <View style={styles.container}>
@@ -66,14 +20,14 @@ const OrderStatus = () => {
         <Text
           style={[
             styles.statusTextStyle,
-            { color: statusToColor[getOrderStatus()] },
+            { color: statusToColor[getOrderStatus(orderDetails as Order)] },
           ]}
         >
-          {statusToText[getOrderStatus()]}
+          {statusToText[getOrderStatus(orderDetails as Order)]}
         </Text>
         <View style={styles.statusIconContainer}>
           <Image
-            source={statusToIcon[getOrderStatus()]}
+            source={statusToIcon[getOrderStatus(orderDetails as Order)]}
             style={styles.statusIconStyle}
           />
         </View>

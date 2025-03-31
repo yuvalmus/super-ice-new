@@ -17,15 +17,17 @@ import { AlertButton, useAlert } from "@/contexts/AlertContext";
 import { userState } from "@/mock/userState";
 import { drivers } from "@/mock/drivers";
 import { distributionLines } from "@/mock/distributionLines";
-import SelectDistributionLineModal from "@/components/distributionLinesScreen/startDistributionLine/SelectDistributionLineModal";
+import SelectDistributionLineModal from "@/components/common/selectionModal/selectableModals/SelectDistributionLineModal";
 import { DistributionLine } from "@/models/DistributionLine";
+import { getOrderStatus } from "@/utils/Order/OrderUtils";
+import { compareDates } from "@/utils/Date/dateUtils";
 
 const addToDistributionLineIcon = require("@/assets/images/addToDistributionLine.png");
 
 const OrderDetailsScreen = () => {
   const { orderDetails, setOrderDetails } = useOrder();
   const { id, fromCustomer, customerId } = useLocalSearchParams();
-  const { show } = useAlert();
+  const { showAlert } = useAlert();
   const [isModalVisible, setIsModalVisible] = useState(false);
 
   const handleBack = () => {
@@ -62,15 +64,6 @@ const OrderDetailsScreen = () => {
     );
   };
 
-  // Helper to show a modal with given title, message, and buttons
-  const showModal = (
-    title: string,
-    message: string,
-    buttons: AlertButton[]
-  ) => {
-    show({ title, message, buttons });
-  };
-
   // TODO: refactor this function
   const handleAddToDistributionLine = () => {
     const hasDistributionLine =
@@ -80,7 +73,7 @@ const OrderDetailsScreen = () => {
     if (!hasDistributionLine) {
       // Order has no distribution line attached
       if (isActiveLineAvailable) {
-        showModal(
+        showAlert(
           "הכנסת ההזמנה לקו חלוקה",
           "האם להכניס את ההזמנה לקו החלוקה הנוכחי או לקו חלוקה אחר?",
           [
@@ -106,7 +99,7 @@ const OrderDetailsScreen = () => {
         "הזמנה זו כבר משויכת לקו חלוקה. האם אתה רוצה לשייך את ההזמנה לקו חלוקה אחר?";
 
       if (isActiveLineAvailable) {
-        showModal(title, message, [
+        showAlert(title, message, [
           {
             text: "קו חלוקה אחר",
             onPress: () => setIsModalVisible(true),
@@ -124,7 +117,7 @@ const OrderDetailsScreen = () => {
           },
         ]);
       } else {
-        showModal(title, message, [
+        showAlert(title, message, [
           {
             text: "קו חלוקה אחר",
             onPress: () => setIsModalVisible(true),
@@ -139,6 +132,13 @@ const OrderDetailsScreen = () => {
       }
     }
   };
+
+  const canChangeDistributionLine = useMemo(() => {
+    return (
+      getOrderStatus(orderDetails as Order) === "newOrder" ||
+      getOrderStatus(orderDetails as Order) === "pending"
+    );
+  }, [orderDetails]);
 
   useEffect(() => {
     const backHandler = BackHandler.addEventListener(
@@ -200,12 +200,14 @@ const OrderDetailsScreen = () => {
                 color="#001B61"
               />
             </TouchableOpacity>
-            <TouchableOpacity onPress={handleAddToDistributionLine}>
-              <Image
-                source={addToDistributionLineIcon}
-                style={styles.addToDistributionLineIcon}
-              />
-            </TouchableOpacity>
+            {canChangeDistributionLine && (
+              <TouchableOpacity onPress={handleAddToDistributionLine}>
+                <Image
+                  source={addToDistributionLineIcon}
+                  style={styles.addToDistributionLineIcon}
+                />
+              </TouchableOpacity>
+            )}
           </View>
         </View>
       }
@@ -214,6 +216,7 @@ const OrderDetailsScreen = () => {
       <OrderDetails />
       <SelectDistributionLineModal
         isVisible={isModalVisible}
+        sort={(a, b) => compareDates(a.scheduledDate, b.scheduledDate)}
         startButtonText="הכנסה לקו חלוקה"
         onSelect={(selectedLineIds: number[]) => {
           setOrderDetails((prev) => {

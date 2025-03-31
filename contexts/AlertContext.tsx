@@ -24,7 +24,7 @@ export interface AlertOptions {
 interface AlertContextType {
   visible: boolean;
   options: AlertOptions;
-  show: (alertOptions: AlertOptions) => void;
+  showAlert: (title: string, message: string, buttons: AlertButton[]) => void;
   hide: () => void;
 }
 
@@ -51,6 +51,15 @@ export const AlertProvider: React.FC<{ children: React.ReactNode }> = ({
     setVisible(true);
   }, []);
 
+  // Helper to show a modal with given title, message, and buttons
+  const showAlert = (
+    title: string,
+    message: string,
+    buttons: AlertButton[]
+  ) => {
+    show({ title, message, buttons });
+  };
+
   const hide = useCallback(() => {
     setVisible(false);
   }, []);
@@ -59,10 +68,10 @@ export const AlertProvider: React.FC<{ children: React.ReactNode }> = ({
     () => ({
       visible,
       options,
-      show,
+      showAlert,
       hide,
     }),
-    [visible, options, show, hide]
+    [visible, options, showAlert, hide]
   );
 
   return (

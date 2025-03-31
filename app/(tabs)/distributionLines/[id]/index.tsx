@@ -17,9 +17,8 @@ import {
   fetchOrders,
   handleDragEnd,
   handleUpdateOrderAmount,
-} from "@/components/distributionLinesScreen/OrderItem/orderOperations";
-import { Ionicons, MaterialCommunityIcons } from "@expo/vector-icons";
-
+} from "@/components/distributionLinesScreen/distributionLineDetails/OrderItem/orderOperations";
+import TopDistributionLineSection from "@/components/distributionLinesScreen/distributionLineDetails/TopSection/TopDistributionLineSection";
 const DistributionLineScreen = () => {
   const { setDistributionLineDetails } = useDistributionLine();
   const { id, fromOrder, orderId } = useLocalSearchParams();
@@ -29,31 +28,6 @@ const DistributionLineScreen = () => {
   const [distributionLine, setDistributionLine] =
     useState<DistributionLine | null>(null);
   const distributionLineId = Number(id);
-  const router = useRouter();
-
-  const handleBack = () => {
-    if (fromOrder === "true" && orderId) {
-      router.replace("/(tabs)/distributionLines");
-      router.push({
-        pathname: "/(tabs)/orders/[id]",
-        params: { id: String(orderId) },
-      });
-    } else {
-      router.push("/(tabs)/distributionLines");
-    }
-  };
-
-  useEffect(() => {
-    const backHandler = BackHandler.addEventListener(
-      "hardwareBackPress",
-      () => {
-        handleBack();
-        return true; // Prevent default back behavior
-      }
-    );
-
-    return () => backHandler.remove();
-  }, [fromOrder, orderId]);
 
   // Fetch distribution line details
   useEffect(() => {
@@ -96,48 +70,8 @@ const DistributionLineScreen = () => {
 
   return (
     <ScreenWrapper
-      title={`קו חלוקה #${id}`}
-      topButton={
-        <View
-          style={{
-            flexDirection: "row-reverse",
-            justifyContent: "space-between",
-            width: "100%",
-          }}
-        >
-          <TouchableOpacity onPress={handleBack}>
-            <MaterialCommunityIcons
-              name="arrow-right"
-              size={28}
-              color="#001B61"
-            />
-          </TouchableOpacity>
-          <View style={styles.leftSideButtonsContainer}>
-            <TouchableOpacity
-              style={{ alignSelf: "flex-start" }}
-              onPress={() => {}}
-            >
-              <Ionicons name="checkmark-circle" size={28} color="#001B61" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ alignSelf: "flex-start" }}
-              onPress={() => {}}
-            >
-              <Ionicons name="add" size={28} color="#001B61" />
-            </TouchableOpacity>
-            <TouchableOpacity
-              style={{ alignSelf: "flex-start" }}
-              onPress={() => {}}
-            >
-              <MaterialCommunityIcons
-                name="map-marker-distance"
-                size={28}
-                color="#001B61"
-              />
-            </TouchableOpacity>
-          </View>
-        </View>
-      }
+      title={`קו חלוקה #${id} ${distributionLine?.isCompleted ? "✅" : ""}`}
+      topButton={<TopDistributionLineSection />}
     >
       {distributionLine && (
         <DistributionLineHeader distributionLine={distributionLine} />
@@ -155,12 +89,5 @@ const DistributionLineScreen = () => {
     </ScreenWrapper>
   );
 };
-
-const styles = StyleSheet.create({
-  leftSideButtonsContainer: {
-    flexDirection: "row",
-    gap: 15,
-  },
-});
 
 export default DistributionLineScreen;
