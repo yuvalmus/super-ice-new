@@ -7,11 +7,15 @@ import { useAlert } from "@/contexts/AlertContext";
 import SelectOrdersModal from "@/components/common/selectionModal/selectableModals/SelectOrdersModal";
 import { getOrderStatus } from "@/utils/Order/OrderUtils";
 import { orders } from "@/mock/orders";
+import { distributionLines } from "@/mock/distributionLines";
 
 const TopDistributionLineSection = () => {
   const { id, fromOrder, orderId } = useLocalSearchParams();
   const { showAlert } = useAlert();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const isDistributionLineCompleted = distributionLines.find(
+    (line) => line.id === Number(id)
+  )?.isCompleted;
 
   const handleBack = () => {
     if (fromOrder === "true" && orderId) {
@@ -78,32 +82,34 @@ const TopDistributionLineSection = () => {
         <MaterialCommunityIcons name="arrow-right" size={28} color="#001B61" />
       </TouchableOpacity>
 
-      <View style={styles.leftSideButtonsContainer}>
-        <TouchableOpacity
-          style={{ alignSelf: "flex-start" }}
-          onPress={() => {}}
-        >
-          <Ionicons name="checkmark-circle" size={28} color="#001B61" />
-        </TouchableOpacity>
+      {!isDistributionLineCompleted && (
+        <View style={styles.leftSideButtonsContainer}>
+          <TouchableOpacity
+            style={{ alignSelf: "flex-start" }}
+            onPress={() => {}}
+          >
+            <Ionicons name="checkmark-circle" size={28} color="#001B61" />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{ alignSelf: "flex-start" }}
-          onPress={() => handleAddOrders()}
-        >
-          <Ionicons name="add" size={28} color="#001B61" />
-        </TouchableOpacity>
+          <TouchableOpacity
+            style={{ alignSelf: "flex-start" }}
+            onPress={() => handleAddOrders()}
+          >
+            <Ionicons name="add" size={28} color="#001B61" />
+          </TouchableOpacity>
 
-        <TouchableOpacity
-          style={{ alignSelf: "flex-start" }}
-          onPress={() => {}}
-        >
-          <MaterialCommunityIcons
-            name="map-marker-distance"
-            size={28}
-            color="#001B61"
-          />
-        </TouchableOpacity>
-      </View>
+          <TouchableOpacity
+            style={{ alignSelf: "flex-start" }}
+            onPress={() => {}}
+          >
+            <MaterialCommunityIcons
+              name="map-marker-distance"
+              size={28}
+              color="#001B61"
+            />
+          </TouchableOpacity>
+        </View>
+      )}
 
       <SelectOrdersModal
         isVisible={isModalVisible}

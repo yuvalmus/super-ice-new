@@ -70,7 +70,7 @@ const DistributionLineScreen = () => {
 
   return (
     <ScreenWrapper
-      title={`קו חלוקה #${id}`}
+      title={`קו חלוקה #${id} ${distributionLine?.isCompleted ? "✅" : ""}`}
       topButton={<TopDistributionLineSection />}
     >
       {distributionLine && (
