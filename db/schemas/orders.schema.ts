@@ -15,6 +15,7 @@ export const ordersSchema = tableSchema({
     { name: "delivery_document", type: "string", isOptional: true },
     { name: "payment_method", type: "string", isOptional: true },
     { name: "notes", type: "string", isOptional: true },
+
     { name: "created_at", type: "string" },
     { name: "updated_at", type: "string" },
   ],

@@ -16,4 +16,7 @@ export default class Order extends Model {
   @field("delivery_document") deliveryDocument?: string;
   @field("payment_method") paymentMethod?: string;
   @field("notes") notes?: string;
+
+  @field("created_at") createdAt!: string;
+  @field("updated_at") updatedAt!: string;
 }

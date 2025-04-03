@@ -14,4 +14,7 @@ export default class Customer extends Model {
   @field("preferred_delivery_document") preferredDeliveryDocument?: string;
   @field("preferred_payment_method") preferredPaymentMethod?: string;
   @field("notes") notes?: string;
+
+  @field("created_at") createdAt!: string;
+  @field("updated_at") updatedAt!: string;
 }

@@ -9,4 +9,7 @@ export default class DistributionLine extends Model {
   @field("scheduled_date") scheduledDate!: string;
   @field("is_completed") isCompleted!: boolean;
   @field("notes") notes?: string;
+
+  @field("created_at") createdAt!: string;
+  @field("updated_at") updatedAt!: string;
 }

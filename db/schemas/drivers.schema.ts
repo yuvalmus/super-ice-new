@@ -6,6 +6,7 @@ export const driversSchema = tableSchema({
     { name: "name", type: "string" },
     { name: "user_id", type: "string" },
     { name: "active_distribution_line_id", type: "string", isOptional: true },
+
     { name: "created_at", type: "string" },
     { name: "updated_at", type: "string" },
   ],

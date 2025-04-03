@@ -8,6 +8,7 @@ export const distributionLinesSchema = tableSchema({
     { name: "scheduled_date", type: "string" },
     { name: "is_completed", type: "boolean" },
     { name: "notes", type: "string", isOptional: true },
+
     { name: "created_at", type: "string" },
     { name: "updated_at", type: "string" },
   ],
