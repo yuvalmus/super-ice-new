@@ -6,5 +6,5 @@ export default class User extends Model {
 
   @field("username") username!: string;
   @field("password_hash") passwordHash!: string;
-  @field("token") token!: string | null;
+  @field("token") token?: string;
 }

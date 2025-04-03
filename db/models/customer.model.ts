@@ -4,14 +4,14 @@ import { field } from "@nozbe/watermelondb/decorators";
 export default class Customer extends Model {
   static table = "customers";
 
+  @field("business_number") businessNumber!: number;
   @field("name") name!: string;
-  @field("invoice_name") invoiceName!: string | null;
   @field("address") address!: string;
-  @field("distribution_area_id") distributionAreaId!: number;
-  @field("freezer_id") freezerId!: number | null;
+  @field("distribution_area_id") distributionAreaId!: string;
   @field("bag_price_2kg") bagPrice2kg!: number;
-  @field("preferred_delivery_document") preferredDeliveryDocument!:
-    | string
-    | null;
-  @field("preferred_payment_method") preferredPaymentMethod!: string | null;
+  @field("invoice_name") invoiceName?: string;
+  @field("freezer_id") freezerId?: string;
+  @field("preferred_delivery_document") preferredDeliveryDocument?: string;
+  @field("preferred_payment_method") preferredPaymentMethod?: string;
+  @field("notes") notes?: string;
 }
