@@ -4,8 +4,13 @@ export const driversSchema = tableSchema({
   name: "drivers",
   columns: [
     { name: "name", type: "string" },
-    { name: "user_id", type: "string" },
-    { name: "active_distribution_line_id", type: "string", isOptional: true },
+    { name: "user_id", type: "string", isIndexed: true },
+    {
+      name: "active_distribution_line_id",
+      type: "string",
+      isOptional: true,
+      isIndexed: true,
+    },
 
     { name: "created_at", type: "string" },
     { name: "updated_at", type: "string" },

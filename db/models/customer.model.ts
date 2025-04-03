@@ -1,5 +1,7 @@
 import { Model } from "@nozbe/watermelondb";
-import { field } from "@nozbe/watermelondb/decorators";
+import { field, relation } from "@nozbe/watermelondb/decorators";
+import DistributionArea from "./distributionArea.model";
+import Freezer from "./freezer.model";
 
 export default class Customer extends Model {
   static table = "customers";
@@ -17,4 +19,9 @@ export default class Customer extends Model {
 
   @field("created_at") createdAt!: string;
   @field("updated_at") updatedAt!: string;
+
+  // Relations
+  @relation("distribution_areas", "distribution_area_id")
+  distributionArea!: DistributionArea;
+  @relation("freezers", "freezer_id") freezer?: Freezer;
 }

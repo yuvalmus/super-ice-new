@@ -6,6 +6,7 @@ import { freezersSchema } from "./schemas/freezers.schema";
 import { customersSchema } from "./schemas/customers.schema";
 import { distributionLinesSchema } from "./schemas/distribution_lines.schema";
 import { ordersSchema } from "./schemas/orders.schema";
+import { contactsSchema } from "./schemas/contacts.schema";
 
 export default appSchema({
   version: 1,
@@ -17,5 +18,6 @@ export default appSchema({
     customersSchema,
     distributionLinesSchema,
     ordersSchema,
+    contactsSchema,
   ],
 });

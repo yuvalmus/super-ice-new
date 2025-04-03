@@ -11,4 +11,7 @@ export default class Contact extends Model {
 
   @field("created_at") createdAt!: string;
   @field("updated_at") updatedAt!: string;
+
+  // Relations
+  @relation("customers", "customer_id") customer!: Customer;
 }

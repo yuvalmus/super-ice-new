@@ -1,5 +1,6 @@
 import { Model } from "@nozbe/watermelondb";
-import { field } from "@nozbe/watermelondb/decorators";
+import { field, relation } from "@nozbe/watermelondb/decorators";
+import Driver from "./driver.model";
 
 export default class DistributionLine extends Model {
   static table = "distribution_lines";
@@ -12,4 +13,7 @@ export default class DistributionLine extends Model {
 
   @field("created_at") createdAt!: string;
   @field("updated_at") updatedAt!: string;
+
+  // Relations
+  @relation("drivers", "driver_id") driver!: Driver;
 }
