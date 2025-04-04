@@ -11,6 +11,6 @@ export type DistributionAreaNames =
   | "חולון-בת ים";
 
 export interface DistributionArea {
-  id: number;
-  name: DistributionAreaNames
+  id: string;
+  name: DistributionAreaNames;
 }

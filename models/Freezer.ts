@@ -1,4 +1,4 @@
 export interface Freezer {
-  id: number;
+  id: string;
   capacity: number;
 }

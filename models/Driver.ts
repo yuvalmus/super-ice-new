@@ -1,5 +1,5 @@
 export interface Driver {
-  id: number;
+  id: string;
   name: string;
-  activeDistributionLineId: number | null;
+  activeDistributionLineId?: string;
 }
