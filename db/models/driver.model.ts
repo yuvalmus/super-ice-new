@@ -10,8 +10,8 @@ export default class Driver extends Model {
   @field("user_id") userId!: string;
   @field("active_distribution_line_id") activeDistributionLineId?: string;
 
-  @field("created_at") createdAt!: string;
-  @field("updated_at") updatedAt!: string;
+  @field("created_at") createdAt!: number;
+  @field("updated_at") updatedAt!: number;
 
   // Relations
   @relation("users", "user_id") user!: User;

@@ -12,7 +12,7 @@ export const driversSchema = tableSchema({
       isIndexed: true,
     },
 
-    { name: "created_at", type: "string" },
-    { name: "updated_at", type: "string" },
+    { name: "created_at", type: "number" },
+    { name: "updated_at", type: "number" },
   ],
 });

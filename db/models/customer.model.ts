@@ -17,8 +17,8 @@ export default class Customer extends Model {
   @field("preferred_payment_method") preferredPaymentMethod?: string;
   @field("notes") notes?: string;
 
-  @field("created_at") createdAt!: string;
-  @field("updated_at") updatedAt!: string;
+  @field("created_at") createdAt!: number;
+  @field("updated_at") updatedAt!: number;
 
   // Relations
   @relation("distribution_areas", "distribution_area_id")

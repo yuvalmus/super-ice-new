@@ -9,8 +9,8 @@ export default class Contact extends Model {
   @field("name") name!: string;
   @field("phone") phone!: string;
 
-  @field("created_at") createdAt!: string;
-  @field("updated_at") updatedAt!: string;
+  @field("created_at") createdAt!: number;
+  @field("updated_at") updatedAt!: number;
 
   // Relations
   @relation("customers", "customer_id") customer!: Customer;

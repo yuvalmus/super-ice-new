@@ -10,7 +10,7 @@ export const usersSchema = tableSchema({
     { name: "picture", type: "string", isOptional: true },
     { name: "driver_id", type: "string", isOptional: true, isIndexed: true },
 
-    { name: "created_at", type: "string" },
-    { name: "updated_at", type: "string" },
+    { name: "created_at", type: "number" },
+    { name: "updated_at", type: "number" },
   ],
 });

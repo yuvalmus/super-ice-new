@@ -7,7 +7,7 @@ export const contactsSchema = tableSchema({
     { name: "name", type: "string" },
     { name: "phone", type: "string" },
 
-    { name: "created_at", type: "string" },
-    { name: "updated_at", type: "string" },
+    { name: "created_at", type: "number" },
+    { name: "updated_at", type: "number" },
   ],
 });

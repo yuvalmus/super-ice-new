@@ -11,8 +11,8 @@ export default class DistributionLine extends Model {
   @field("is_completed") isCompleted!: boolean;
   @field("notes") notes?: string;
 
-  @field("created_at") createdAt!: string;
-  @field("updated_at") updatedAt!: string;
+  @field("created_at") createdAt!: number;
+  @field("updated_at") updatedAt!: number;
 
   // Relations
   @relation("drivers", "driver_id") driver!: Driver;

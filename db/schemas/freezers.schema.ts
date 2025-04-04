@@ -5,7 +5,7 @@ export const freezersSchema = tableSchema({
   columns: [
     { name: "capacity", type: "number" },
 
-    { name: "created_at", type: "string" },
-    { name: "updated_at", type: "string" },
+    { name: "created_at", type: "number" },
+    { name: "updated_at", type: "number" },
   ],
 });

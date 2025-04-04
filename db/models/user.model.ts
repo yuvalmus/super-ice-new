@@ -12,8 +12,8 @@ export default class User extends Model {
   @field("picture") picture?: string;
   @field("driver_id") driverId?: string;
 
-  @field("created_at") createdAt!: string;
-  @field("updated_at") updatedAt!: string;
+  @field("created_at") createdAt!: number;
+  @field("updated_at") updatedAt!: number;
 
   // Relations
   @relation("drivers", "driver_id") driver?: Driver;

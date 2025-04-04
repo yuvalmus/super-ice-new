@@ -19,8 +19,8 @@ export default class Order extends Model {
   @field("payment_method") paymentMethod?: string;
   @field("notes") notes?: string;
 
-  @field("created_at") createdAt!: string;
-  @field("updated_at") updatedAt!: string;
+  @field("created_at") createdAt!: number;
+  @field("updated_at") updatedAt!: number;
 
   // Relations
   @relation("customers", "customer_id") customer!: Customer;

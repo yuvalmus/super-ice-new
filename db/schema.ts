@@ -9,7 +9,7 @@ import { ordersSchema } from "./schemas/orders.schema";
 import { contactsSchema } from "./schemas/contacts.schema";
 
 export default appSchema({
-  version: 1,
+  version: 2,
   tables: [
     usersSchema,
     driversSchema,

@@ -6,6 +6,6 @@ export default class Freezer extends Model {
 
   @field("capacity") capacity!: number;
 
-  @field("created_at") createdAt!: string;
-  @field("updated_at") updatedAt!: string;
+  @field("created_at") createdAt!: number;
+  @field("updated_at") updatedAt!: number;
 }
