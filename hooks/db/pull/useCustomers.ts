@@ -8,6 +8,7 @@ export const transformCustomerToModel = (
   customerDB: CustomerDB
 ): CustomerModel => {
   return {
+    id: customerDB.id,
     businessNumber: customerDB.businessNumber,
     name: customerDB.name,
     address: customerDB.address,
