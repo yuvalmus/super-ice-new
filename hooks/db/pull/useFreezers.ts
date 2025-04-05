@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import FreezerDB from "@/db/models/freezer.model";
 import { Freezer as FreezerModel } from "@/models/Freezer";
+import { Freezer as FreezerDB } from "@/db/models";
 
 export const transformFreezerToModel = (freezerDB: FreezerDB): FreezerModel => {
   return {

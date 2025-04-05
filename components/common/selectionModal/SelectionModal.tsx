@@ -13,9 +13,9 @@ import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
 
 interface SelectionModalProps {
   isVisible: boolean;
-  onSelect: (selectedIds: number[]) => void;
+  onSelect: (selectedIds: string[]) => void;
   onClose: () => void;
-  itemIdExtractor: (item: any) => number;
+  itemIdExtractor: (item: any) => string;
   title: string;
   startButtonText: string;
   contentContainerStyle?: StyleProp<ViewStyle>;
@@ -27,14 +27,14 @@ interface SelectionModalProps {
 }
 
 const SelectionModal = (props: SelectionModalProps) => {
-  const [selectedItems, setSelectedItems] = useState<number[]>([]);
+  const [selectedItems, setSelectedItems] = useState<string[]>([]);
 
   const handleClose = () => {
     setSelectedItems([]);
     props.onClose();
   };
 
-  const handleSelect = (itemId: number) => {
+  const handleSelect = (itemId: string) => {
     if (props.multiple) {
       setSelectedItems((prev) =>
         prev.includes(itemId)

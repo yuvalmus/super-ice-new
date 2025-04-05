@@ -1,29 +1,29 @@
-import DistributionStats from "@/components/common/distributionStats/DistributionStats";
-import StartDistributionLine from "@/components/distributionLinesScreen/startDistributionLine/StartDistributionLine";
 import DriversCardsSection from "@/components/homeScreen/DriversCardsSection";
 import { ScreenWrapper } from "@/components/ScreenWrapper";
 import { ScreenWidth, ScreenHeight } from "@/constants/Dimensions";
-import { useMemo } from "react";
-import { distributionLines } from "@/mock/distributionLines";
-import { drivers } from "@/mock/drivers";
-import { userState } from "@/mock/userState";
-import { Image, StyleSheet, View, Text } from "react-native";
+import { Image, StyleSheet, TouchableOpacity } from "react-native";
 import ActiveDistributionLineStats from "@/components/common/distributionStats/ActiveDistributionLineStats";
+import { useRequireAuth } from "@/hooks/useRequireAuth";
+import { MaterialCommunityIcons } from "@expo/vector-icons";
+import { useAuth } from "@/contexts/AuthContext";
 
 const superIceTruck = require("@/assets/images/superIceTruck.png");
 
 export default function HomeScreen() {
-  const activeDistributionLine = useMemo(() => {
-    const currentDriver = drivers.find(
-      (driver) => driver.id === userState.userId
-    );
-    return distributionLines.find(
-      (line) => line.driverId === currentDriver?.activeDistributionLineId
-    );
-  }, [drivers, userState]);
+  const { user } = useRequireAuth();
+  const { logout } = useAuth();
+
+  // If user is not authenticated, the hook will redirect to login
+  if (!user) return null;
 
   return (
-    <ScreenWrapper>
+    <ScreenWrapper
+      topButton={
+        <TouchableOpacity onPress={() => logout()}>
+          <MaterialCommunityIcons name="logout" size={26} />
+        </TouchableOpacity>
+      }
+    >
       <Image
         source={superIceTruck}
         alt="superIceTruck"

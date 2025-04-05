@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import ContactDB from "@/db/models/contact.model";
 import { Contact as ContactModel } from "@/models/Contact";
+import { Contact as ContactDB } from "@/db/models";
 
 export const transformContactToModel = (contactDB: ContactDB): ContactModel => {
   return {

@@ -6,7 +6,7 @@ import { DistributionLine } from "@/models/DistributionLine";
 
 interface SelectDistributionLineModalProps {
   isVisible: boolean;
-  onSelect: (selectedIds: number[]) => void;
+  onSelect: (selectedIds: string[]) => void;
   onClose: () => void;
   startButtonText?: string;
   filterRules?: (line: DistributionLine) => boolean;

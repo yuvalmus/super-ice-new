@@ -14,7 +14,7 @@ const TopDistributionLineSection = () => {
   const { showAlert } = useAlert();
   const [isModalVisible, setIsModalVisible] = useState(false);
   const isDistributionLineCompleted = distributionLines.find(
-    (line) => line.id === Number(id)
+    (line) => line.id === id
   )?.isCompleted;
 
   const handleBack = () => {
@@ -62,10 +62,10 @@ const TopDistributionLineSection = () => {
     );
   };
 
-  const handleSelectOrders = (selectedIds: number[]) => {
+  const handleSelectOrders = (selectedIds: string[]) => {
     orders.forEach((order) => {
       if (selectedIds.includes(order.id)) {
-        order.attachedDistributionLineId = Number(id);
+        order.attachedDistributionLineId = id as string;
       }
     });
   };
@@ -107,7 +107,7 @@ const TopDistributionLineSection = () => {
         filterRules={(order) =>
           (getOrderStatus(order) === "newOrder" ||
             getOrderStatus(order) === "pending") &&
-          order.attachedDistributionLineId !== Number(id)
+          order.attachedDistributionLineId !== id
         }
         onSelect={handleSelectOrders}
         onClose={() => setIsModalVisible(false)}

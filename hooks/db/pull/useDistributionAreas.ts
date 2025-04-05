@@ -1,10 +1,10 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import DistributionAreaDB from "@/db/models/distributionArea.model";
 import {
   DistributionArea as DistributionAreaModel,
   DistributionAreaNames,
 } from "@/models/DistributionArea";
+import { DistributionArea as DistributionAreaDB } from "@/db/models";
 
 export const transformDistributionAreaToModel = (
   areaDB: DistributionAreaDB

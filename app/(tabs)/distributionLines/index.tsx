@@ -1,15 +1,8 @@
 import { ScreenWrapper } from "@/components/ScreenWrapper";
-import {
-  FlatList,
-  Text,
-  StyleSheet,
-  TouchableOpacity,
-  ScrollView,
-} from "react-native";
+import { FlatList, Text, StyleSheet, TouchableOpacity } from "react-native";
 import DistributionLineCard from "@/components/distributionLinesScreen/distributionLineCard/DistributionLineCard";
 import { distributionLines } from "@/mock/distributionLines";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
-import { userState } from "@/mock/userState";
 import { useMemo, useState } from "react";
 import { drivers } from "@/mock/drivers";
 import SegmentedControl from "@react-native-segmented-control/segmented-control";
@@ -17,6 +10,7 @@ import { compareDates } from "@/utils/Date/dateUtils";
 import { Ionicons } from "@expo/vector-icons";
 import ActiveDistributionLineStats from "@/components/common/distributionStats/ActiveDistributionLineStats";
 import { useRouter } from "expo-router";
+import { useAuth } from "@/contexts/AuthContext";
 
 type DistributionLineFilter = "הקווים שלי" | "קווים אחרים";
 const SegmentIndices: Record<DistributionLineFilter, number> = {
@@ -26,15 +20,14 @@ const SegmentIndices: Record<DistributionLineFilter, number> = {
 type SegmentType = keyof typeof SegmentIndices;
 
 export default function DistributionLineScreen() {
+  const { user } = useAuth();
   const [selectedIndex, setSelectedIndex] = useState<number>(
     SegmentIndices["הקווים שלי"]
   );
   const router = useRouter();
 
   const filteredDistributionLines = useMemo(() => {
-    const currentDriver = drivers.find(
-      (driver) => driver.id === userState.userId
-    );
+    const currentDriver = drivers.find((driver) => driver.id === user?.id);
 
     const lines =
       selectedIndex === SegmentIndices["הקווים שלי"]
@@ -46,7 +39,7 @@ export default function DistributionLineScreen() {
           );
 
     return lines.sort((a, b) => compareDates(a.scheduledDate, b.scheduledDate));
-  }, [selectedIndex, distributionLines, drivers, userState]);
+  }, [selectedIndex, distributionLines, drivers, user]);
 
   return (
     <ScreenWrapper

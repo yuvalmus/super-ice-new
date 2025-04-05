@@ -1,11 +1,11 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import OrderDB from "@/db/models/order.model";
 import {
   Order as OrderModel,
   DeliveryDoc,
   PaymentMethod,
 } from "@/models/Order";
+import { Order as OrderDB } from "@/db/models";
 
 export const transformOrderToModel = (orderDB: OrderDB): OrderModel => {
   return {

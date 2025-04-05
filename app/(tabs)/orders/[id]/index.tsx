@@ -13,14 +13,14 @@ import OrderDetails from "@/components/common/orders/orderDetails/OrderDetails";
 import { Order } from "@/models/Order";
 import { orders } from "@/mock/orders";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
-import { AlertButton, useAlert } from "@/contexts/AlertContext";
-import { userState } from "@/mock/userState";
+import { useAlert } from "@/contexts/AlertContext";
 import { drivers } from "@/mock/drivers";
 import { distributionLines } from "@/mock/distributionLines";
 import SelectDistributionLineModal from "@/components/common/selectionModal/selectableModals/SelectDistributionLineModal";
 import { DistributionLine } from "@/models/DistributionLine";
 import { getOrderStatus } from "@/utils/Order/OrderUtils";
 import { compareDates } from "@/utils/Date/dateUtils";
+import { useAuth } from "@/contexts/AuthContext";
 
 const addToDistributionLineIcon = require("@/assets/images/addToDistributionLine.png");
 
@@ -29,6 +29,7 @@ const OrderDetailsScreen = () => {
   const { id, fromCustomer, customerId } = useLocalSearchParams();
   const { showAlert } = useAlert();
   const [isModalVisible, setIsModalVisible] = useState(false);
+  const { user } = useAuth();
 
   const handleBack = () => {
     if (fromCustomer === "true" && customerId) {
@@ -42,23 +43,20 @@ const OrderDetailsScreen = () => {
     }
   };
 
-  const activeDistributionLine = useMemo(() => {
-    const currentDriver = drivers.find(
-      (driver) => driver.id === userState.userId
-    );
+  const activeLine = useMemo(() => {
+    const currentDriver = drivers.find((driver) => driver.id === user?.id);
+
     return distributionLines.find(
-      (line) => line.driverId === currentDriver?.activeDistributionLineId
+      (line) => line.id === currentDriver?.activeDistributionLineId
     );
-  }, [drivers, distributionLines, userState]);
+  }, [drivers, distributionLines, user]);
 
   const updateAttachedDistributionLineToActiveLine = () => {
     setOrderDetails((prev) =>
       prev
         ? {
             ...prev,
-            attachedDistributionLineId: (
-              activeDistributionLine as DistributionLine
-            ).id,
+            attachedDistributionLineId: (activeLine as DistributionLine).id,
           }
         : null
     );
@@ -68,7 +66,7 @@ const OrderDetailsScreen = () => {
   const handleAddToDistributionLine = () => {
     const hasDistributionLine =
       orderDetails?.attachedDistributionLineId !== null;
-    const isActiveLineAvailable = !!activeDistributionLine;
+    const isActiveLineAvailable = !!activeLine;
 
     if (!hasDistributionLine) {
       // Order has no distribution line attached
@@ -153,8 +151,7 @@ const OrderDetailsScreen = () => {
   }, [fromCustomer, customerId]);
 
   const fetchOrderDetails = (): Order | null => {
-    const order: Order | null =
-      orders.find((order) => order.id === Number(id)) ?? null;
+    const order: Order | null = orders.find((order) => order.id === id) ?? null;
 
     return order;
   };
@@ -218,7 +215,7 @@ const OrderDetailsScreen = () => {
         isVisible={isModalVisible}
         sort={(a, b) => compareDates(a.scheduledDate, b.scheduledDate)}
         startButtonText="הכנסה לקו חלוקה"
-        onSelect={(selectedLineIds: number[]) => {
+        onSelect={(selectedLineIds: string[]) => {
           setOrderDetails((prev) => {
             if (!prev) return null;
             return {

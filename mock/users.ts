@@ -9,4 +9,12 @@ export const users: User[] = [
     role: "admin",
     driverId: "1",
   },
+  {
+    id: "2",
+    googleUid: "bkjb234234",
+    name: "לירון",
+    email: "ADLiron@gmail.com",
+    role: "driver",
+    driverId: "2",
+  },
 ];

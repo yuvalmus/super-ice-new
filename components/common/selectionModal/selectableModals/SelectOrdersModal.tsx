@@ -10,7 +10,7 @@ import { Order } from "@/models/Order";
 
 interface SelectOrdersModalProps {
   isVisible: boolean;
-  onSelect: (selectedIds: number[]) => void;
+  onSelect: (selectedIds: string[]) => void;
   onClose: () => void;
   startButtonText?: string;
   filterRules?: (order: Order) => boolean;
@@ -44,7 +44,7 @@ const SelectOrdersModal = (props: SelectOrdersModalProps) => {
           width={ScreenWidth * 0.62}
           title={
             customers.find(
-              (customer) => customer.businessNumber === order.customerId
+              (customer) => customer.id === order.customerId
             )?.name
           }
           regularDetails={[{ title: "כמות:", data: order.amountRequired }]}

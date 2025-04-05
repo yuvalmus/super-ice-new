@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import UserDB from "@/db/models/user.model";
 import { User as UserModel } from "@/models/User";
+import { User as UserDB } from "@/db/models";
 
 export const transformUserToModel = (userDB: UserDB): UserModel => {
   return {

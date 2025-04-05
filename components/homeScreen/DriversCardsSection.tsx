@@ -1,18 +1,25 @@
 import { ScrollView, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useMemo } from "react";
 import DriverCard from "./DriverCard";
 import { ScreenWidth, ScreenHeight } from "@/constants/Dimensions";
 import { Driver } from "@/models/Driver";
 import { drivers } from "@/mock/drivers";
-import { userState } from "@/mock/userState";
+import { useAuth } from "@/contexts/AuthContext";
 
 const DriversCardsSection = () => {
-  const currentDriver = drivers.find(
-    (driver) => driver.id === userState.userId
-  );
-  const otherDrivers = drivers.filter(
-    (driver) => !(driver.id === userState.userId)
-  );
+  const { user } = useAuth();
+
+  const currentUser = useMemo(() => {
+    if (!user?.id) return null;
+    return drivers.find((driver) => driver.id === user.id);
+  }, [drivers, user]);
+
+  const otherDrivers = useMemo(() => {
+    if (!user?.id) return drivers;
+    return drivers.filter((driver) => driver.id !== user.id);
+  }, [drivers, user]);
+
+  const hasCurrentDriver = !!currentUser;
 
   return (
     <View style={styles.driversSectionContainer}>
@@ -24,13 +31,16 @@ const DriversCardsSection = () => {
         contentContainerStyle={styles.scrollViewStyle}
         contentOffset={{ x: ScreenWidth, y: 0 }}
       >
-        <DriverCard
-          driver={currentDriver as Driver}
-          style={{ marginRight: ScreenWidth * 0.04 }}
-        />
+        {hasCurrentDriver && (
+          <DriverCard
+            driver={currentUser as Driver}
+            style={{ marginRight: ScreenWidth * 0.04 }}
+          />
+        )}
+
         {otherDrivers.map((driver: Driver, index) => (
           <DriverCard
-            key={index}
+            key={driver.id}
             driver={driver}
             style={
               index !== otherDrivers.length - 1 && {

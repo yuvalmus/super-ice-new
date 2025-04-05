@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import DriverDB from "@/db/models/driver.model";
 import { Driver as DriverModel } from "@/models/Driver";
+import { Driver as DriverDB } from "@/db/models";
 
 export const transformDriverToModel = (driverDB: DriverDB): DriverModel => {
   return {

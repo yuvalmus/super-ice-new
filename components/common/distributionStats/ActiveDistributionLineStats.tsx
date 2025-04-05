@@ -4,18 +4,22 @@ import StartDistributionLine from "@/components/distributionLinesScreen/startDis
 import DistributionStats from "./DistributionStats";
 import { distributionLines } from "@/mock/distributionLines";
 import { drivers } from "@/mock/drivers";
-import { userState } from "@/mock/userState";
 import { ScreenWidth, ScreenHeight } from "@/constants/Dimensions";
+import { useAuth } from "@/contexts/AuthContext";
 
 const ActiveDistributionLineStats = () => {
+  const { user } = useAuth();
+
   const activeDistributionLine = useMemo(() => {
-    const currentDriver = drivers.find(
-      (driver) => driver.id === userState.userId
-    );
+    if (!user?.id) return null;
+
+    const currentDriver = drivers.find((driver) => driver.id === user.id);
+    if (!currentDriver?.activeDistributionLineId) return null;
+
     return distributionLines.find(
-      (line) => line.driverId === currentDriver?.activeDistributionLineId
+      (line) => line.id === currentDriver.activeDistributionLineId
     );
-  }, [drivers, userState]);
+  }, [drivers, user]);
 
   return (
     <>

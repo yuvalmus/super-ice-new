@@ -4,14 +4,16 @@ import SQLiteAdapter from "@nozbe/watermelondb/adapters/sqlite";
 
 import schema from "./schema";
 import migrations from "./migrations";
-import User from "./models/user.model";
-import Driver from "./models/driver.model";
-import DistributionArea from "./models/distributionArea.model";
-import Freezer from "./models/freezer.model";
-import Customer from "./models/customer.model";
-import DistributionLine from "./models/distributionLine.model";
-import Order from "./models/order.model";
-import Contact from "./models/contact.model";
+import {
+  User,
+  Driver,
+  DistributionArea,
+  Freezer,
+  Customer,
+  DistributionLine,
+  Order,
+  Contact,
+} from "./models";
 
 // First, create the adapter to the underlying database:
 const adapter = new SQLiteAdapter({

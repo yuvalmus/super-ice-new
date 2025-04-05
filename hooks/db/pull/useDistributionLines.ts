@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import DistributionLineDB from "@/db/models/distributionLine.model";
 import { DistributionLine as DistributionLineModel } from "@/models/DistributionLine";
+import { DistributionLine as DistributionLineDB } from "@/db/models";
 
 export const transformDistributionLineToModel = (
   lineDB: DistributionLineDB

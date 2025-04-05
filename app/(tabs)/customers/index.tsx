@@ -6,16 +6,18 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import { customers } from "@/mock/customers";
 import CustomerCard from "@/components/customersScreen/customerCard/CustomerCard";
 import { ScreenHeight, ScreenWidth } from "@/constants/Dimensions";
-import { distributionAreas } from "@/mock/distributionAreas";
 import SearchBar from "@/components/common/searchBar/SearchBar";
 import { useMemo, useState } from "react";
 import { Ionicons } from "@expo/vector-icons";
+import { useCustomersModels, useDistributionAreaModels } from "@/hooks/db/pull";
 
 export default function CustomersScreen() {
   const [searchedName, setSearchedName] = useState("");
+
+  const customers = useCustomersModels();
+  const distributionAreas = useDistributionAreaModels();
 
   const sectionedData = useMemo(
     () =>
@@ -25,7 +27,7 @@ export default function CustomersScreen() {
           data: customers.filter(
             (customer) =>
               customer.distributionAreaId === area.id &&
-              customer.name.includes(searchedName)
+              customer.name.toLowerCase().includes(searchedName.toLowerCase())
           ),
         }))
         .filter((section) => section.data.length > 0),

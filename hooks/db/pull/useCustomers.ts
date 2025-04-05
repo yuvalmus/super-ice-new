@@ -1,8 +1,8 @@
 import { useState, useEffect } from "react";
 import database from "@/db";
-import CustomerDB from "@/db/models/customer.model";
 import { Customer as CustomerModel } from "@/models/Customer";
 import { DeliveryDoc, PaymentMethod } from "@/models/Order";
+import { Customer as CustomerDB } from "@/db/models";
 
 export const transformCustomerToModel = (
   customerDB: CustomerDB
