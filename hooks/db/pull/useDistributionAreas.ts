@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import database from "@/db";
+import { useDbModels, UseDbModelResult } from "./useDbCollection";
 import {
   DistributionArea as DistributionAreaModel,
   DistributionAreaNames,
@@ -15,28 +14,14 @@ export const transformDistributionAreaToModel = (
   };
 };
 
-export const useDistributionAreaModels = () => {
-  const areas = useDistributionAreas();
-
-  return areas.map(transformDistributionAreaToModel);
-};
-
-export const useDistributionAreas = () => {
-  const [areas, setAreas] = useState<DistributionAreaDB[]>([]);
-
-  useEffect(() => {
-    const query = database
-      .get<DistributionAreaDB>("distribution_areas")
-      .query();
-
-    const subscription = query
-      .observe()
-      .subscribe((newAreas: DistributionAreaDB[]) => {
-        setAreas(newAreas);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return areas;
-};
+/**
+ * React hook for accessing distribution area models from the database
+ * @returns {UseDbModelResult<DistributionAreaModel>} Transformed distribution area models with loading/error states
+ */
+export const useDistributionAreas =
+  (): UseDbModelResult<DistributionAreaModel> => {
+    return useDbModels<DistributionAreaDB, DistributionAreaModel>(
+      "distribution_areas",
+      transformDistributionAreaToModel
+    );
+  };

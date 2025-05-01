@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import database from "@/db";
+import { useDbModels, UseDbModelResult } from "./useDbCollection";
 import { Freezer as FreezerModel } from "@/models/Freezer";
 import { Freezer as FreezerDB } from "@/db/models";
 
@@ -10,26 +9,13 @@ export const transformFreezerToModel = (freezerDB: FreezerDB): FreezerModel => {
   };
 };
 
-export const useFreezerModels = () => {
-  const freezers = useFreezers();
-
-  return freezers.map(transformFreezerToModel);
-};
-
-export const useFreezers = () => {
-  const [freezers, setFreezers] = useState<FreezerDB[]>([]);
-
-  useEffect(() => {
-    const query = database.get<FreezerDB>("freezers").query();
-
-    const subscription = query
-      .observe()
-      .subscribe((newFreezers: FreezerDB[]) => {
-        setFreezers(newFreezers);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return freezers;
+/**
+ * React hook for accessing freezer models from the database
+ * @returns {UseDbModelResult<FreezerModel>} Transformed freezer models with loading/error states
+ */
+export const useFreezers = (): UseDbModelResult<FreezerModel> => {
+  return useDbModels<FreezerDB, FreezerModel>(
+    "freezers",
+    transformFreezerToModel
+  );
 };

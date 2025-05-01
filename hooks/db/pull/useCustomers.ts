@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import database from "@/db";
+import { useDbModels, UseDbModelResult } from "./useDbCollection";
 import { Customer as CustomerModel } from "@/models/Customer";
 import { DeliveryDoc, PaymentMethod } from "@/models/Order";
 import { Customer as CustomerDB } from "@/db/models";
@@ -26,26 +25,13 @@ export const transformCustomerToModel = (
   };
 };
 
-export const useCustomersModels = () => {
-  const customers = useCustomers();
-
-  return customers.map(transformCustomerToModel);
-};
-
-export const useCustomers = () => {
-  const [customers, setCustomers] = useState<CustomerDB[]>([]);
-
-  useEffect(() => {
-    const query = database.get<CustomerDB>("customers").query();
-
-    const subscription = query
-      .observe()
-      .subscribe((newCustomers: CustomerDB[]) => {
-        setCustomers(newCustomers);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return customers;
+/**
+ * React hook for accessing customer models from the database
+ * @returns {UseDbModelResult<CustomerModel>} Transformed customer models with loading/error states
+ */
+export const useCustomers = (): UseDbModelResult<CustomerModel> => {
+  return useDbModels<CustomerDB, CustomerModel>(
+    "customers",
+    transformCustomerToModel
+  );
 };

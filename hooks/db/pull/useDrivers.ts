@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import database from "@/db";
+import { useDbModels, UseDbModelResult } from "./useDbCollection";
 import { Driver as DriverModel } from "@/models/Driver";
 import { Driver as DriverDB } from "@/db/models";
 
@@ -11,24 +10,10 @@ export const transformDriverToModel = (driverDB: DriverDB): DriverModel => {
   };
 };
 
-export const useDriverModels = () => {
-  const drivers = useDrivers();
-
-  return drivers.map(transformDriverToModel);
-};
-
-export const useDrivers = () => {
-  const [drivers, setDrivers] = useState<DriverDB[]>([]);
-
-  useEffect(() => {
-    const query = database.get<DriverDB>("drivers").query();
-
-    const subscription = query.observe().subscribe((newDrivers: DriverDB[]) => {
-      setDrivers(newDrivers);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return drivers;
+/**
+ * React hook for accessing driver models from the database
+ * @returns {UseDbModelResult<DriverModel>} Transformed driver models with loading/error states
+ */
+export const useDrivers = (): UseDbModelResult<DriverModel> => {
+  return useDbModels<DriverDB, DriverModel>("drivers", transformDriverToModel);
 };

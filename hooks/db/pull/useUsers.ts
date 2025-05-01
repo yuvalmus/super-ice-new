@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import database from "@/db";
+import { useDbModels, UseDbModelResult } from "./useDbCollection";
 import { User as UserModel } from "@/models/User";
 import { User as UserDB } from "@/db/models";
 
@@ -15,24 +14,10 @@ export const transformUserToModel = (userDB: UserDB): UserModel => {
   };
 };
 
-export const useUserModels = () => {
-  const users = useUsers();
-
-  return users.map(transformUserToModel);
-};
-
-export const useUsers = () => {
-  const [users, setUsers] = useState<UserDB[]>([]);
-
-  useEffect(() => {
-    const query = database.get<UserDB>("users").query();
-
-    const subscription = query.observe().subscribe((newUsers: UserDB[]) => {
-      setUsers(newUsers);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return users;
+/**
+ * React hook for accessing user models from the database
+ * @returns {UseDbModelResult<UserModel>} Transformed user models with loading/error states
+ */
+export const useUsers = (): UseDbModelResult<UserModel> => {
+  return useDbModels<UserDB, UserModel>("users", transformUserToModel);
 };

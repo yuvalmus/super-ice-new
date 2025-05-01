@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import database from "@/db";
+import { useDbModels, UseDbModelResult } from "./useDbCollection";
 import {
   Order as OrderModel,
   DeliveryDoc,
@@ -25,24 +24,10 @@ export const transformOrderToModel = (orderDB: OrderDB): OrderModel => {
   };
 };
 
-export const useOrderModels = () => {
-  const orders = useOrders();
-
-  return orders.map(transformOrderToModel);
-};
-
-export const useOrders = () => {
-  const [orders, setOrders] = useState<OrderDB[]>([]);
-
-  useEffect(() => {
-    const query = database.get<OrderDB>("orders").query();
-
-    const subscription = query.observe().subscribe((newOrders: OrderDB[]) => {
-      setOrders(newOrders);
-    });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return orders;
+/**
+ * React hook for accessing order models from the database
+ * @returns {UseDbModelResult<OrderModel>} Transformed order models with loading/error states
+ */
+export const useOrders = (): UseDbModelResult<OrderModel> => {
+  return useDbModels<OrderDB, OrderModel>("orders", transformOrderToModel);
 };

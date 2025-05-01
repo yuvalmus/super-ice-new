@@ -1,5 +1,4 @@
-import { useState, useEffect } from "react";
-import database from "@/db";
+import { useDbModels, UseDbModelResult } from "./useDbCollection";
 import { Contact as ContactModel } from "@/models/Contact";
 import { Contact as ContactDB } from "@/db/models";
 
@@ -12,26 +11,13 @@ export const transformContactToModel = (contactDB: ContactDB): ContactModel => {
   };
 };
 
-export const useContactModels = () => {
-  const contacts = useContacts();
-
-  return contacts.map(transformContactToModel);
-};
-
-export const useContacts = () => {
-  const [contacts, setContacts] = useState<ContactDB[]>([]);
-
-  useEffect(() => {
-    const query = database.get<ContactDB>("contacts").query();
-
-    const subscription = query
-      .observe()
-      .subscribe((newContacts: ContactDB[]) => {
-        setContacts(newContacts);
-      });
-
-    return () => subscription.unsubscribe();
-  }, []);
-
-  return contacts;
+/**
+ * React hook for accessing contact models from the database
+ * @returns {UseDbModelResult<ContactModel>} Transformed contact models with loading/error states
+ */
+export const useContacts = (): UseDbModelResult<ContactModel> => {
+  return useDbModels<ContactDB, ContactModel>(
+    "contacts",
+    transformContactToModel
+  );
 };

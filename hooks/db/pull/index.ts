@@ -6,3 +6,4 @@ export * from "./useDrivers";
 export * from "./useFreezers";
 export * from "./useOrders";
 export * from "./useUsers";
+export * from "./useDbCollection";
